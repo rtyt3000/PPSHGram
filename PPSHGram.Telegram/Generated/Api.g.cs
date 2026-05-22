@@ -42,7 +42,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> AddStickerToSetAsync(
+    public Task<bool> AddStickerToSet(
         AddStickerToSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -77,7 +77,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> AnswerCallbackQueryAsync(
+    public Task<bool> AnswerCallbackQuery(
         AnswerCallbackQueryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -100,7 +100,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.SentGuestMessage> AnswerGuestQueryAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.SentGuestMessage> AnswerGuestQuery(
         AnswerGuestQueryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -139,7 +139,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> AnswerInlineQueryAsync(
+    public Task<bool> AnswerInlineQuery(
         AnswerInlineQueryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -166,7 +166,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> AnswerPreCheckoutQueryAsync(
+    public Task<bool> AnswerPreCheckoutQuery(
         AnswerPreCheckoutQueryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -197,7 +197,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> AnswerShippingQueryAsync(
+    public Task<bool> AnswerShippingQuery(
         AnswerShippingQueryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -220,7 +220,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.SentWebAppMessage> AnswerWebAppQueryAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.SentWebAppMessage> AnswerWebAppQuery(
         AnswerWebAppQueryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -243,7 +243,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> ApproveChatJoinRequestAsync(
+    public Task<bool> ApproveChatJoinRequest(
         ApproveChatJoinRequestRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -270,7 +270,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> ApproveSuggestedPostAsync(
+    public Task<bool> ApproveSuggestedPost(
         ApproveSuggestedPostRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -301,7 +301,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> BanChatMemberAsync(
+    public Task<bool> BanChatMember(
         BanChatMemberRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -324,7 +324,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> BanChatSenderChatAsync(
+    public Task<bool> BanChatSenderChat(
         BanChatSenderChatRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -347,7 +347,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> CloseForumTopicAsync(
+    public Task<bool> CloseForumTopic(
         CloseForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -366,7 +366,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> CloseGeneralForumTopicAsync(
+    public Task<bool> CloseGeneralForumTopic(
         CloseGeneralForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -389,7 +389,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> ConvertGiftToStarsAsync(
+    public Task<bool> ConvertGiftToStars(
         ConvertGiftToStarsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -472,7 +472,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.MessageId> CopyMessageAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.MessageId> CopyMessage(
         CopyMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -519,7 +519,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.MessageId>> CopyMessagesAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.MessageId>> CopyMessages(
         CopyMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -554,7 +554,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> CreateChatInviteLinkAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> CreateChatInviteLink(
         CreateChatInviteLinkRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -585,7 +585,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> CreateChatSubscriptionInviteLinkAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> CreateChatSubscriptionInviteLink(
         CreateChatSubscriptionInviteLinkRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -616,7 +616,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ForumTopic> CreateForumTopicAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ForumTopic> CreateForumTopic(
         CreateForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -719,7 +719,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<string> CreateInvoiceLinkAsync(
+    public Task<string> CreateInvoiceLink(
         CreateInvoiceLinkRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -758,7 +758,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> CreateNewStickerSetAsync(
+    public Task<bool> CreateNewStickerSet(
         CreateNewStickerSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -781,7 +781,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeclineChatJoinRequestAsync(
+    public Task<bool> DeclineChatJoinRequest(
         DeclineChatJoinRequestRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -808,7 +808,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeclineSuggestedPostAsync(
+    public Task<bool> DeclineSuggestedPost(
         DeclineSuggestedPostRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -835,7 +835,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteAllMessageReactionsAsync(
+    public Task<bool> DeleteAllMessageReactions(
         DeleteAllMessageReactionsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -858,7 +858,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteBusinessMessagesAsync(
+    public Task<bool> DeleteBusinessMessages(
         DeleteBusinessMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -877,7 +877,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteChatPhotoAsync(
+    public Task<bool> DeleteChatPhoto(
         DeleteChatPhotoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -896,7 +896,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteChatStickerSetAsync(
+    public Task<bool> DeleteChatStickerSet(
         DeleteChatStickerSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -919,7 +919,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteForumTopicAsync(
+    public Task<bool> DeleteForumTopic(
         DeleteForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -942,7 +942,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteMessageAsync(
+    public Task<bool> DeleteMessage(
         DeleteMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -973,7 +973,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteMessageReactionAsync(
+    public Task<bool> DeleteMessageReaction(
         DeleteMessageReactionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -996,7 +996,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteMessagesAsync(
+    public Task<bool> DeleteMessages(
         DeleteMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1019,7 +1019,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteMyCommandsAsync(
+    public Task<bool> DeleteMyCommands(
         DeleteMyCommandsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1038,7 +1038,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteStickerFromSetAsync(
+    public Task<bool> DeleteStickerFromSet(
         DeleteStickerFromSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1057,7 +1057,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteStickerSetAsync(
+    public Task<bool> DeleteStickerSet(
         DeleteStickerSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1080,7 +1080,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteStoryAsync(
+    public Task<bool> DeleteStory(
         DeleteStoryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1099,7 +1099,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> DeleteWebhookAsync(
+    public Task<bool> DeleteWebhook(
         DeleteWebhookRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1138,7 +1138,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> EditChatInviteLinkAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> EditChatInviteLink(
         EditChatInviteLinkRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1165,7 +1165,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> EditChatSubscriptionInviteLinkAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> EditChatSubscriptionInviteLink(
         EditChatSubscriptionInviteLinkRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1196,7 +1196,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditForumTopicAsync(
+    public Task<bool> EditForumTopic(
         EditForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1219,7 +1219,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditGeneralForumTopicAsync(
+    public Task<bool> EditGeneralForumTopic(
         EditGeneralForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1270,7 +1270,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditMessageCaptionAsync(
+    public Task<bool> EditMessageCaption(
         EditMessageCaptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1305,7 +1305,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> EditMessageChecklistAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> EditMessageChecklist(
         EditMessageChecklistRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1364,7 +1364,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditMessageLiveLocationAsync(
+    public Task<bool> EditMessageLiveLocation(
         EditMessageLiveLocationRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1403,7 +1403,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditMessageMediaAsync(
+    public Task<bool> EditMessageMedia(
         EditMessageMediaRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1438,7 +1438,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditMessageReplyMarkupAsync(
+    public Task<bool> EditMessageReplyMarkup(
         EditMessageReplyMarkupRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1489,7 +1489,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditMessageTextAsync(
+    public Task<bool> EditMessageText(
         EditMessageTextRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1532,7 +1532,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Story> EditStoryAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Story> EditStory(
         EditStoryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1559,7 +1559,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> EditUserStarSubscriptionAsync(
+    public Task<bool> EditUserStarSubscription(
         EditUserStarSubscriptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1578,7 +1578,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<string> ExportChatInviteLinkAsync(
+    public Task<string> ExportChatInviteLink(
         ExportChatInviteLinkRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1633,7 +1633,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> ForwardMessageAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> ForwardMessage(
         ForwardMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1676,7 +1676,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.MessageId>> ForwardMessagesAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.MessageId>> ForwardMessages(
         ForwardMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1735,7 +1735,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetBusinessAccountGiftsAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetBusinessAccountGifts(
         GetBusinessAccountGiftsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1754,7 +1754,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.StarAmount> GetBusinessAccountStarBalanceAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.StarAmount> GetBusinessAccountStarBalance(
         GetBusinessAccountStarBalanceRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1773,7 +1773,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.BusinessConnection> GetBusinessConnectionAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.BusinessConnection> GetBusinessConnection(
         GetBusinessConnectionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1792,7 +1792,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatFullInfo> GetChatAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatFullInfo> GetChat(
         GetChatRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1815,7 +1815,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.ChatMember>> GetChatAdministratorsAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.ChatMember>> GetChatAdministrators(
         GetChatAdministratorsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1874,7 +1874,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetChatGiftsAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetChatGifts(
         GetChatGiftsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1897,7 +1897,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatMember> GetChatMemberAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatMember> GetChatMember(
         GetChatMemberRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1916,7 +1916,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<long> GetChatMemberCountAsync(
+    public Task<long> GetChatMemberCount(
         GetChatMemberCountRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1935,7 +1935,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.MenuButton> GetChatMenuButtonAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.MenuButton> GetChatMenuButton(
         GetChatMenuButtonRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1954,7 +1954,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Sticker>> GetCustomEmojiStickersAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Sticker>> GetCustomEmojiStickers(
         GetCustomEmojiStickersRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -1973,7 +1973,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.File> GetFileAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.File> GetFile(
         GetFileRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2004,7 +2004,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.GameHighScore>> GetGameHighScoresAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.GameHighScore>> GetGameHighScores(
         GetGameHighScoresRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2023,7 +2023,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.BotAccessSettings> GetManagedBotAccessSettingsAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.BotAccessSettings> GetManagedBotAccessSettings(
         GetManagedBotAccessSettingsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2042,7 +2042,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<string> GetManagedBotTokenAsync(
+    public Task<string> GetManagedBotToken(
         GetManagedBotTokenRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2065,7 +2065,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.BotCommand>> GetMyCommandsAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.BotCommand>> GetMyCommands(
         GetMyCommandsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2084,7 +2084,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatAdministratorRights> GetMyDefaultAdministratorRightsAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatAdministratorRights> GetMyDefaultAdministratorRights(
         GetMyDefaultAdministratorRightsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2103,7 +2103,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.BotDescription> GetMyDescriptionAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.BotDescription> GetMyDescription(
         GetMyDescriptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2122,7 +2122,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.BotName> GetMyNameAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.BotName> GetMyName(
         GetMyNameRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2141,7 +2141,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.BotShortDescription> GetMyShortDescriptionAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.BotShortDescription> GetMyShortDescription(
         GetMyShortDescriptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2164,7 +2164,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.StarTransactions> GetStarTransactionsAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.StarTransactions> GetStarTransactions(
         GetStarTransactionsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2183,7 +2183,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.StickerSet> GetStickerSetAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.StickerSet> GetStickerSet(
         GetStickerSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2214,7 +2214,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Update>> GetUpdatesAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Update>> GetUpdates(
         GetUpdatesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2237,7 +2237,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.UserChatBoosts> GetUserChatBoostsAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.UserChatBoosts> GetUserChatBoosts(
         GetUserChatBoostsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2288,7 +2288,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetUserGiftsAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetUserGifts(
         GetUserGiftsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2311,7 +2311,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>> GetUserPersonalChatMessagesAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>> GetUserPersonalChatMessages(
         GetUserPersonalChatMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2338,7 +2338,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.UserProfileAudios> GetUserProfileAudiosAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.UserProfileAudios> GetUserProfileAudios(
         GetUserProfileAudiosRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2365,7 +2365,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.UserProfilePhotos> GetUserProfilePhotosAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.UserProfilePhotos> GetUserProfilePhotos(
         GetUserProfilePhotosRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2404,7 +2404,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> GiftPremiumSubscriptionAsync(
+    public Task<bool> GiftPremiumSubscription(
         GiftPremiumSubscriptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2423,7 +2423,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> HideGeneralForumTopicAsync(
+    public Task<bool> HideGeneralForumTopic(
         HideGeneralForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2442,7 +2442,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> LeaveChatAsync(
+    public Task<bool> LeaveChat(
         LeaveChatRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2473,7 +2473,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> PinChatMessageAsync(
+    public Task<bool> PinChatMessage(
         PinChatMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2524,7 +2524,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Story> PostStoryAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Story> PostStory(
         PostStoryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2615,7 +2615,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> PromoteChatMemberAsync(
+    public Task<bool> PromoteChatMember(
         PromoteChatMemberRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2642,7 +2642,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> ReadBusinessMessageAsync(
+    public Task<bool> ReadBusinessMessage(
         ReadBusinessMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2665,7 +2665,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> RefundStarPaymentAsync(
+    public Task<bool> RefundStarPayment(
         RefundStarPaymentRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2688,7 +2688,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> RemoveBusinessAccountProfilePhotoAsync(
+    public Task<bool> RemoveBusinessAccountProfilePhoto(
         RemoveBusinessAccountProfilePhotoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2707,7 +2707,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> RemoveChatVerificationAsync(
+    public Task<bool> RemoveChatVerification(
         RemoveChatVerificationRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2726,7 +2726,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> RemoveUserVerificationAsync(
+    public Task<bool> RemoveUserVerification(
         RemoveUserVerificationRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2749,7 +2749,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> ReopenForumTopicAsync(
+    public Task<bool> ReopenForumTopic(
         ReopenForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2768,7 +2768,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> ReopenGeneralForumTopicAsync(
+    public Task<bool> ReopenGeneralForumTopic(
         ReopenGeneralForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2787,7 +2787,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<string> ReplaceManagedBotTokenAsync(
+    public Task<string> ReplaceManagedBotToken(
         ReplaceManagedBotTokenRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2818,7 +2818,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> ReplaceStickerInSetAsync(
+    public Task<bool> ReplaceStickerInSet(
         ReplaceStickerInSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2857,7 +2857,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Story> RepostStoryAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Story> RepostStory(
         RepostStoryRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2892,7 +2892,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> RestrictChatMemberAsync(
+    public Task<bool> RestrictChatMember(
         RestrictChatMemberRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2915,7 +2915,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> RevokeChatInviteLinkAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> RevokeChatInviteLink(
         RevokeChatInviteLinkRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2954,7 +2954,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.PreparedInlineMessage> SavePreparedInlineMessageAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.PreparedInlineMessage> SavePreparedInlineMessage(
         SavePreparedInlineMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -2977,7 +2977,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.PreparedKeyboardButton> SavePreparedKeyboardButtonAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.PreparedKeyboardButton> SavePreparedKeyboardButton(
         SavePreparedKeyboardButtonRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3076,7 +3076,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendAnimationAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendAnimation(
         SendAnimationRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3167,7 +3167,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendAudioAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendAudio(
         SendAudioRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3198,7 +3198,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SendChatActionAsync(
+    public Task<bool> SendChatAction(
         SendChatActionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3245,7 +3245,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendChecklistAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendChecklist(
         SendChecklistRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3320,7 +3320,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendContactAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendContact(
         SendContactRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3383,7 +3383,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendDiceAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendDice(
         SendDiceRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3466,7 +3466,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendDocumentAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendDocument(
         SendDocumentRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3521,7 +3521,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendGameAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendGame(
         SendGameRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3564,7 +3564,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SendGiftAsync(
+    public Task<bool> SendGift(
         SendGiftRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3703,7 +3703,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendInvoiceAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendInvoice(
         SendInvoiceRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3790,7 +3790,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendLivePhotoAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendLivePhoto(
         SendLivePhotoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3873,7 +3873,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendLocationAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendLocation(
         SendLocationRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -3928,7 +3928,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>> SendMediaGroupAsync(
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>> SendMediaGroup(
         SendMediaGroupRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4003,7 +4003,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendMessageAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendMessage(
         SendMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4042,7 +4042,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SendMessageDraftAsync(
+    public Task<bool> SendMessageDraft(
         SendMessageDraftRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4125,7 +4125,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPaidMediaAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPaidMedia(
         SendPaidMediaRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4208,7 +4208,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPhotoAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPhoto(
         SendPhotoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4359,7 +4359,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPollAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPoll(
         SendPollRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4426,7 +4426,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendStickerAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendSticker(
         SendStickerRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4517,7 +4517,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVenueAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVenue(
         SendVenueRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4628,7 +4628,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideoAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideo(
         SendVideoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4703,7 +4703,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideoNoteAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideoNote(
         SendVideoNoteRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4782,7 +4782,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVoiceAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVoice(
         SendVoiceRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4805,7 +4805,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetBusinessAccountBioAsync(
+    public Task<bool> SetBusinessAccountBio(
         SetBusinessAccountBioRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4832,7 +4832,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetBusinessAccountGiftSettingsAsync(
+    public Task<bool> SetBusinessAccountGiftSettings(
         SetBusinessAccountGiftSettingsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4859,7 +4859,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetBusinessAccountNameAsync(
+    public Task<bool> SetBusinessAccountName(
         SetBusinessAccountNameRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4886,7 +4886,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetBusinessAccountProfilePhotoAsync(
+    public Task<bool> SetBusinessAccountProfilePhoto(
         SetBusinessAccountProfilePhotoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4909,7 +4909,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetBusinessAccountUsernameAsync(
+    public Task<bool> SetBusinessAccountUsername(
         SetBusinessAccountUsernameRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4936,7 +4936,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatAdministratorCustomTitleAsync(
+    public Task<bool> SetChatAdministratorCustomTitle(
         SetChatAdministratorCustomTitleRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4959,7 +4959,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatDescriptionAsync(
+    public Task<bool> SetChatDescription(
         SetChatDescriptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -4986,7 +4986,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatMemberTagAsync(
+    public Task<bool> SetChatMemberTag(
         SetChatMemberTagRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5009,7 +5009,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatMenuButtonAsync(
+    public Task<bool> SetChatMenuButton(
         SetChatMenuButtonRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5036,7 +5036,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatPermissionsAsync(
+    public Task<bool> SetChatPermissions(
         SetChatPermissionsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5059,7 +5059,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatPhotoAsync(
+    public Task<bool> SetChatPhoto(
         SetChatPhotoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5082,7 +5082,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatStickerSetAsync(
+    public Task<bool> SetChatStickerSet(
         SetChatStickerSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5105,7 +5105,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetChatTitleAsync(
+    public Task<bool> SetChatTitle(
         SetChatTitleRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5128,7 +5128,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetCustomEmojiStickerSetThumbnailAsync(
+    public Task<bool> SetCustomEmojiStickerSetThumbnail(
         SetCustomEmojiStickerSetThumbnailRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5171,7 +5171,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetGameScoreAsync(
+    public Task<bool> SetGameScore(
         SetGameScoreRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5198,7 +5198,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetManagedBotAccessSettingsAsync(
+    public Task<bool> SetManagedBotAccessSettings(
         SetManagedBotAccessSettingsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5229,7 +5229,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetMessageReactionAsync(
+    public Task<bool> SetMessageReaction(
         SetMessageReactionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5256,7 +5256,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetMyCommandsAsync(
+    public Task<bool> SetMyCommands(
         SetMyCommandsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5279,7 +5279,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetMyDefaultAdministratorRightsAsync(
+    public Task<bool> SetMyDefaultAdministratorRights(
         SetMyDefaultAdministratorRightsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5302,7 +5302,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetMyDescriptionAsync(
+    public Task<bool> SetMyDescription(
         SetMyDescriptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5325,7 +5325,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetMyNameAsync(
+    public Task<bool> SetMyName(
         SetMyNameRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5344,7 +5344,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetMyProfilePhotoAsync(
+    public Task<bool> SetMyProfilePhoto(
         SetMyProfilePhotoRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5367,7 +5367,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetMyShortDescriptionAsync(
+    public Task<bool> SetMyShortDescription(
         SetMyShortDescriptionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5390,7 +5390,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetPassportDataErrorsAsync(
+    public Task<bool> SetPassportDataErrors(
         SetPassportDataErrorsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5413,7 +5413,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetStickerEmojiListAsync(
+    public Task<bool> SetStickerEmojiList(
         SetStickerEmojiListRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5436,7 +5436,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetStickerKeywordsAsync(
+    public Task<bool> SetStickerKeywords(
         SetStickerKeywordsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5459,7 +5459,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetStickerMaskPositionAsync(
+    public Task<bool> SetStickerMaskPosition(
         SetStickerMaskPositionRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5482,7 +5482,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetStickerPositionInSetAsync(
+    public Task<bool> SetStickerPositionInSet(
         SetStickerPositionInSetRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5513,7 +5513,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetStickerSetThumbnailAsync(
+    public Task<bool> SetStickerSetThumbnail(
         SetStickerSetThumbnailRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5536,7 +5536,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetStickerSetTitleAsync(
+    public Task<bool> SetStickerSetTitle(
         SetStickerSetTitleRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5563,7 +5563,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetUserEmojiStatusAsync(
+    public Task<bool> SetUserEmojiStatus(
         SetUserEmojiStatusRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5606,7 +5606,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> SetWebhookAsync(
+    public Task<bool> SetWebhook(
         SetWebhookRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5641,7 +5641,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> StopMessageLiveLocationAsync(
+    public Task<bool> StopMessageLiveLocation(
         StopMessageLiveLocationRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5672,7 +5672,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.Poll> StopPollAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.Poll> StopPoll(
         StopPollRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5695,7 +5695,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> TransferBusinessAccountStarsAsync(
+    public Task<bool> TransferBusinessAccountStars(
         TransferBusinessAccountStarsRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5726,7 +5726,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> TransferGiftAsync(
+    public Task<bool> TransferGift(
         TransferGiftRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5753,7 +5753,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UnbanChatMemberAsync(
+    public Task<bool> UnbanChatMember(
         UnbanChatMemberRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5776,7 +5776,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UnbanChatSenderChatAsync(
+    public Task<bool> UnbanChatSenderChat(
         UnbanChatSenderChatRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5795,7 +5795,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UnhideGeneralForumTopicAsync(
+    public Task<bool> UnhideGeneralForumTopic(
         UnhideGeneralForumTopicRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5814,7 +5814,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UnpinAllChatMessagesAsync(
+    public Task<bool> UnpinAllChatMessages(
         UnpinAllChatMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5837,7 +5837,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UnpinAllForumTopicMessagesAsync(
+    public Task<bool> UnpinAllForumTopicMessages(
         UnpinAllForumTopicMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5856,7 +5856,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UnpinAllGeneralForumTopicMessagesAsync(
+    public Task<bool> UnpinAllGeneralForumTopicMessages(
         UnpinAllGeneralForumTopicMessagesRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5883,7 +5883,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UnpinChatMessageAsync(
+    public Task<bool> UnpinChatMessage(
         UnpinChatMessageRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5914,7 +5914,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> UpgradeGiftAsync(
+    public Task<bool> UpgradeGift(
         UpgradeGiftRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5941,7 +5941,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<PPSHGram.Telegram.Generated.Types.File> UploadStickerFileAsync(
+    public Task<PPSHGram.Telegram.Generated.Types.File> UploadStickerFile(
         UploadStickerFileRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5964,7 +5964,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> VerifyChatAsync(
+    public Task<bool> VerifyChat(
         VerifyChatRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -5987,7 +5987,7 @@ public sealed partial class Api : TelegramApiClient
     /// </item>
     /// </list>
     /// </remarks>
-    public Task<bool> VerifyUserAsync(
+    public Task<bool> VerifyUser(
         VerifyUserRequest request,
         CancellationToken cancellationToken = default)
     {

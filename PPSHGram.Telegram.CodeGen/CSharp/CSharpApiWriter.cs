@@ -51,7 +51,7 @@ internal static class CSharpApiWriter
             builder,
             method.Parameters.Select(parameter => (parameter.Name, parameter.Type, parameter.Required, parameter.Description)),
             4);
-        builder.AppendLine($"    public Task<{returnType}> {methodName}Async(");
+        builder.AppendLine($"    public Task<{returnType}> {methodName}(");
         builder.AppendLine($"        {requestName} request,");
         builder.AppendLine("        CancellationToken cancellationToken = default)");
         builder.AppendLine("    {");
