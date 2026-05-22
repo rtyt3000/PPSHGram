@@ -41,6 +41,10 @@ internal static class CSharpGenerator
         File.WriteAllText(
             Path.Combine(methodsDirectory, "TelegramMethods.g.cs"),
             CSharpMethodsWriter.WriteMethods(schema.Methods));
+
+        File.WriteAllText(
+            Path.Combine(outputDirectory, "Api.g.cs"),
+            CSharpApiWriter.WriteApi(schema.Methods));
     }
 
     private static IReadOnlyList<string> FindMissingReferencedTypes(TelegramSchema schema)

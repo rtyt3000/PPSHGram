@@ -27,7 +27,7 @@ internal static partial class TelegramDocsParser
 
             if (HeadersEqual(table.Headers, ["Parameter", "Type", "Required", "Description"]))
             {
-                methods.Add(new TelegramMethod(block.Name, block.Description, ParseReturnType(block.Html), ParseParameters(table.Rows)));
+                methods.Add(new TelegramMethod(block.Name, block.Description, ParseReturnType(block.Description), ParseParameters(table.Rows)));
             }
         }
 
@@ -141,11 +141,29 @@ internal static partial class TelegramDocsParser
         return OptionalPrefixRegex().Replace(description, string.Empty).Trim();
     }
 
-    private static string ParseReturnType(string html)
+    private static string ParseReturnType(string description)
     {
-        var text = HtmlTools.ToOneLineText(html);
-        var match = ReturnTypeRegex().Match(text);
-        return match.Success ? match.Groups["type"].Value.Trim() : "Object";
+        if (ReturnsTrueRegex().IsMatch(description) || TrueIsReturnedRegex().IsMatch(description))
+        {
+            return "True";
+        }
+
+        var arrayMatch = ArrayReturnTypeRegex().Match(description);
+        if (arrayMatch.Success)
+        {
+            return $"Array of {arrayMatch.Groups["type"].Value}";
+        }
+
+        foreach (var regex in ReturnTypeRegexes())
+        {
+            var match = regex.Match(description);
+            if (match.Success)
+            {
+                return match.Groups["type"].Value.Trim();
+            }
+        }
+
+        return "Object";
     }
 
     private static string? ParseBotApiVersion(string html)
@@ -174,8 +192,50 @@ internal static partial class TelegramDocsParser
     [GeneratedRegex(@"^Optional\.\s*", RegexOptions.IgnoreCase)]
     private static partial Regex OptionalPrefixRegex();
 
-    [GeneratedRegex(@"Returns\s+(?:an?\s+)?(?<type>.+?)(?:\.| on success|$)", RegexOptions.IgnoreCase)]
-    private static partial Regex ReturnTypeRegex();
+    private static IEnumerable<Regex> ReturnTypeRegexes()
+    {
+        yield return ReturnsDirectTypeRegex();
+        yield return ReturnsTypeOnSuccessRegex();
+        yield return ReturnsTheTypeOfRegex();
+        yield return ReturnsDescribedTypeOnSuccessRegex();
+        yield return ReturnsFormTypeRegex();
+        yield return ReturnsAsTypeRegex();
+        yield return OnSuccessReturnedTypeRegex();
+        yield return ReturnedTypeRegex();
+    }
+
+    [GeneratedRegex(@"\bReturns\s+True\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnsTrueRegex();
+
+    [GeneratedRegex(@"\bTrue\s+is\s+returned\b", RegexOptions.IgnoreCase)]
+    private static partial Regex TrueIsReturnedRegex();
+
+    [GeneratedRegex(@"\barray\s+of\s+(?<type>[A-Z][A-Za-z0-9]+)\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ArrayReturnTypeRegex();
+
+    [GeneratedRegex(@"\bReturns\s+(?:an?\s+)?(?<type>[A-Z][A-Za-z0-9]+)\s+objects?\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnsDirectTypeRegex();
+
+    [GeneratedRegex(@"\bReturns\s+(?<type>[A-Z][A-Za-z0-9]+)\s+on\s+success\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnsTypeOnSuccessRegex();
+
+    [GeneratedRegex(@"\bReturns\s+the\s+(?<type>[A-Z][A-Za-z0-9]+)\s+of\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnsTheTypeOfRegex();
+
+    [GeneratedRegex(@"\bReturns\s+the\s+\w+\s+(?<type>[A-Z][A-Za-z0-9]+)\s+on\s+success\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnsDescribedTypeOnSuccessRegex();
+
+    [GeneratedRegex(@"\bReturns\b.+?\bin\s+form\s+of\s+(?:an?\s+)?(?<type>[A-Z][A-Za-z0-9]+)\s+objects?\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnsFormTypeRegex();
+
+    [GeneratedRegex(@"\bReturns\b.+?\bas\s+(?:an?\s+)?(?<type>[A-Z][A-Za-z0-9]+)(?:\s+objects?)?\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnsAsTypeRegex();
+
+    [GeneratedRegex(@"\bOn\s+success\b.+?\b(?<type>[A-Z][A-Za-z0-9]+)(?:\s+objects?)?\s+is\s+returned\b", RegexOptions.IgnoreCase)]
+    private static partial Regex OnSuccessReturnedTypeRegex();
+
+    [GeneratedRegex(@"\b(?<type>[A-Z][A-Za-z0-9]+)(?:\s+objects?)?\s+is\s+returned\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ReturnedTypeRegex();
 
     [GeneratedRegex(@"Bot API (?<version>\d+(?:\.\d+)*)", RegexOptions.IgnoreCase)]
     private static partial Regex BotApiVersionRegex();
