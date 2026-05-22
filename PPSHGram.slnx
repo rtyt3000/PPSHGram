@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="PPSHGram.Telegram.CodeGen/PPSHGram.Telegram.CodeGen.csproj" />
+  <Project Path="PPSHGram.Core/PPSHGram.Core.csproj" />
+  <Project Path="PPSHGram.Telegram/PPSHGram.Telegram.csproj" />
+  <Project Path="PPSHGram.Tests/PPSHGram.Tests.csproj" />
+</Solution>
