@@ -3,6 +3,7 @@ using PPSHGram.Core.Models.Filters;
 
 namespace PPSHGram.Core.Filters;
 
+[RequiresContext(typeof(MessageContextBase))]
 public sealed class TextAttribute : HandlerFilterAttribute
 {
     public TextAttribute()
@@ -32,6 +33,7 @@ public sealed class TextAttribute : HandlerFilterAttribute
     }
 }
 
+[RequiresContext(typeof(MessageContextBase))]
 public sealed class CaptionAttribute : HandlerFilterAttribute
 {
     public CaptionAttribute()
@@ -61,6 +63,7 @@ public sealed class CaptionAttribute : HandlerFilterAttribute
     }
 }
 
+[RequiresContext(typeof(MessageContextBase))]
 public sealed class CommandAttribute : HandlerFilterAttribute
 {
     public CommandAttribute(string command)
@@ -92,6 +95,7 @@ public sealed class CommandAttribute : HandlerFilterAttribute
     }
 }
 
+[RequiresContext(typeof(CallbackQueryContext))]
 public sealed class CallbackDataAttribute : HandlerFilterAttribute
 {
     public CallbackDataAttribute()

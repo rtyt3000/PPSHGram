@@ -1,4 +1,5 @@
 using PPSHGram.Core.Models.Context;
+using System.Reflection;
 
 namespace PPSHGram.Core.Models.Filters;
 
@@ -9,7 +10,9 @@ public abstract class HandlerFilterAttribute : Attribute, IHandlerFilter
 
     public bool Negate { get; init; }
 
-    public virtual Type ContextType => typeof(IContext);
+    public virtual Type ContextType => GetType()
+        .GetCustomAttribute<RequiresContextAttribute>(inherit: true)
+        ?.ContextType ?? typeof(IContext);
 
     public abstract bool Matches(IContext context);
 }

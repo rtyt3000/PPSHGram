@@ -22,6 +22,7 @@
     <ItemGroup>
       <ProjectReference Include="..\PPSHGram.COre\PPSHGram.Core.csproj" />
       <ProjectReference Include="..\PPSHGram.Telegram\PPSHGram.Telegram.csproj" />
+      <ProjectReference Include="..\PPSHGram.Analyzers\PPSHGram.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>

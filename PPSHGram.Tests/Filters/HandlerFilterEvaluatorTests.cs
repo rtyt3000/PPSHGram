@@ -92,7 +92,7 @@ public class HandlerFilterEvaluatorTests
     private sealed class FilteredHandler
     {
         [NeverMatch(Negate = true)]
-        public void Handle()
+        public void Handle(IContext context)
         {
         }
     }

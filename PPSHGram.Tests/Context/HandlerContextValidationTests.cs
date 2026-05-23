@@ -3,6 +3,7 @@ using PPSHGram.Core.Filters;
 using PPSHGram.Core.Models.Context;
 using PPSHGram.Core.Models.Exeptions;
 using PPSHGram.Core.Models.Filters;
+using PPSHGram.Core.Models.Handlers;
 using PPSHGram.Telegram;
 using PPSHGram.Telegram.Generated.Types;
 
@@ -68,12 +69,22 @@ public class HandlerContextValidationTests
         action.Should().Throw<HandlerContextValidationException>();
     }
 
+    [Fact]
+    public void Handler_discovery_rejects_class_based_handler_with_wrong_context()
+    {
+        var action = () => HandlerDiscovery.Discover(typeof(InvalidClassBasedHandler));
+
+        action.Should().Throw<HandlerContextValidationException>();
+    }
+
     [Message]
     [Text]
     private sealed class ValidMessageHandler
     {
         public Task Handle(MessageContext context) => Task.CompletedTask;
     }
+
+#pragma warning disable PPSHG001, PPSHG003
 
     [Message]
     private sealed class InvalidMessageHandler
@@ -87,4 +98,13 @@ public class HandlerContextValidationTests
     {
         public Task Handle(IContext context) => Task.CompletedTask;
     }
+
+    [Message]
+    [Text]
+    private sealed class InvalidClassBasedHandler
+    {
+        public Task Handle(CallbackQueryContext context) => Task.CompletedTask;
+    }
+
+#pragma warning restore PPSHG001, PPSHG003
 }
