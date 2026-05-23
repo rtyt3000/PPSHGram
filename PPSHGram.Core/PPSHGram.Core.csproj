@@ -8,8 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Models\Attributes\FunctionBased\" />
-      <Folder Include="Models\Context\" />
+      <Folder Include="Models\Filters\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PPSHGram.Telegram\PPSHGram.Telegram.csproj" />
     </ItemGroup>
 
 </Project>

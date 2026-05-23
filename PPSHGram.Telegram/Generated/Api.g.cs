@@ -50,6 +50,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of sticker set owner</description>
+    /// </item>
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Sticker set name</description>
+    /// </item>
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>InputSticker. Required. A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn&apos;t changed.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> AddStickerToSet(
+        long userId,
+        string name,
+        PPSHGram.Telegram.Generated.Types.InputSticker sticker,
+        CancellationToken cancellationToken = default)
+    {
+        return AddStickerToSet(new AddStickerToSetRequest
+        {
+            UserId = userId,
+            Name = name,
+            Sticker = sticker,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
     /// </summary>
     /// <remarks>
@@ -85,6 +119,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>callback_query_id</term>
+    /// <description>String. Required. Unique identifier for the query to be answered</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> AnswerCallbackQuery(
+        string callbackQueryId,
+        CancellationToken cancellationToken = default)
+    {
+        return AnswerCallbackQuery(new AnswerCallbackQueryRequest
+        {
+            CallbackQueryId = callbackQueryId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
     /// </summary>
     /// <remarks>
@@ -105,6 +161,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.SentGuestMessage>(TelegramMethods.AnswerGuestQuery, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>guest_query_id</term>
+    /// <description>String. Required. Unique identifier for the query to be answered</description>
+    /// </item>
+    /// <item>
+    /// <term>result</term>
+    /// <description>InlineQueryResult. Required. A JSON-serialized object describing the message to be sent</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.SentGuestMessage> AnswerGuestQuery(
+        string guestQueryId,
+        PPSHGram.Telegram.Generated.Types.InlineQueryResult result,
+        CancellationToken cancellationToken = default)
+    {
+        return AnswerGuestQuery(new AnswerGuestQueryRequest
+        {
+            GuestQueryId = guestQueryId,
+            Result = result,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -147,6 +231,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send answers to an inline query. On success, True is returned. No more than 50 results per query are allowed.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>inline_query_id</term>
+    /// <description>String. Required. Unique identifier for the answered query</description>
+    /// </item>
+    /// <item>
+    /// <term>results</term>
+    /// <description>Array of InlineQueryResult. Required. A JSON-serialized array of results for the inline query</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> AnswerInlineQuery(
+        string inlineQueryId,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.InlineQueryResult> results,
+        CancellationToken cancellationToken = default)
+    {
+        return AnswerInlineQuery(new AnswerInlineQueryRequest
+        {
+            InlineQueryId = inlineQueryId,
+            Results = results,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query. Use this method to respond to such pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
     /// </summary>
     /// <remarks>
@@ -171,6 +283,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.AnswerPreCheckoutQuery, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query. Use this method to respond to such pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>pre_checkout_query_id</term>
+    /// <description>String. Required. Unique identifier for the query to be answered</description>
+    /// </item>
+    /// <item>
+    /// <term>ok</term>
+    /// <description>Boolean. Required. Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> AnswerPreCheckoutQuery(
+        string preCheckoutQueryId,
+        bool ok,
+        CancellationToken cancellationToken = default)
+    {
+        return AnswerPreCheckoutQuery(new AnswerPreCheckoutQueryRequest
+        {
+            PreCheckoutQueryId = preCheckoutQueryId,
+            Ok = ok,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -205,6 +345,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>shipping_query_id</term>
+    /// <description>String. Required. Unique identifier for the query to be answered</description>
+    /// </item>
+    /// <item>
+    /// <term>ok</term>
+    /// <description>Boolean. Required. Pass True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> AnswerShippingQuery(
+        string shippingQueryId,
+        bool ok,
+        CancellationToken cancellationToken = default)
+    {
+        return AnswerShippingQuery(new AnswerShippingQueryRequest
+        {
+            ShippingQueryId = shippingQueryId,
+            Ok = ok,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned.
     /// </summary>
     /// <remarks>
@@ -228,6 +396,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>web_app_query_id</term>
+    /// <description>String. Required. Unique identifier for the query to be answered</description>
+    /// </item>
+    /// <item>
+    /// <term>result</term>
+    /// <description>InlineQueryResult. Required. A JSON-serialized object describing the message to be sent</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.SentWebAppMessage> AnswerWebAppQuery(
+        string webAppQueryId,
+        PPSHGram.Telegram.Generated.Types.InlineQueryResult result,
+        CancellationToken cancellationToken = default)
+    {
+        return AnswerWebAppQuery(new AnswerWebAppQueryRequest
+        {
+            WebAppQueryId = webAppQueryId,
+            Result = result,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -248,6 +444,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.ApproveChatJoinRequest, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> ApproveChatJoinRequest(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return ApproveChatJoinRequest(new ApproveChatJoinRequestRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -275,6 +499,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.ApproveSuggestedPost, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to approve a suggested post in a direct messages chat. The bot must have the &apos;can_post_messages&apos; administrator right in the corresponding channel chat. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer. Required. Unique identifier for the target direct messages chat</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Identifier of a suggested post message to approve</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> ApproveSuggestedPost(
+        long chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return ApproveSuggestedPost(new ApproveSuggestedPostRequest
+        {
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -309,6 +561,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target group or username of the target supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> BanChatMember(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return BanChatMember(new BanChatMemberRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won&apos;t be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -329,6 +609,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.BanChatSenderChat, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won&apos;t be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>sender_chat_id</term>
+    /// <description>Integer. Required. Unique identifier of the target sender chat</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> BanChatSenderChat(
+        object chatId,
+        long senderChatId,
+        CancellationToken cancellationToken = default)
+    {
+        return BanChatSenderChat(new BanChatSenderChatRequest
+        {
+            ChatId = chatId,
+            SenderChatId = senderChatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -355,6 +663,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_thread_id</term>
+    /// <description>Integer. Required. Unique identifier for the target message thread of the forum topic</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> CloseForumTopic(
+        object chatId,
+        long messageThreadId,
+        CancellationToken cancellationToken = default)
+    {
+        return CloseForumTopic(new CloseForumTopicRequest
+        {
+            ChatId = chatId,
+            MessageThreadId = messageThreadId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to close an open &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -371,6 +707,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.CloseGeneralForumTopic, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to close an open &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> CloseGeneralForumTopic(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return CloseGeneralForumTopic(new CloseGeneralForumTopicRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -394,6 +752,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.ConvertGiftToStars, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>owned_gift_id</term>
+    /// <description>String. Required. Unique identifier of the regular gift that should be converted to Telegram Stars</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> ConvertGiftToStars(
+        string businessConnectionId,
+        string ownedGiftId,
+        CancellationToken cancellationToken = default)
+    {
+        return ConvertGiftToStars(new ConvertGiftToStarsRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            OwnedGiftId = ownedGiftId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -480,6 +866,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can&apos;t be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn&apos;t have a link to the original message. Returns the MessageId of the sent message on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>from_chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format @username)</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Message identifier in the chat specified in from_chat_id</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.MessageId> CopyMessage(
+        object chatId,
+        object fromChatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return CopyMessage(new CopyMessageRequest
+        {
+            ChatId = chatId,
+            FromChatId = fromChatId,
+            MessageId = messageId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to copy messages of any kind. If some of the specified messages can&apos;t be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can&apos;t be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don&apos;t have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
     /// </summary>
     /// <remarks>
@@ -527,6 +947,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to copy messages of any kind. If some of the specified messages can&apos;t be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can&apos;t be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don&apos;t have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>from_chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format @username)</description>
+    /// </item>
+    /// <item>
+    /// <term>message_ids</term>
+    /// <description>Array of Integer. Required. A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to copy. The identifiers must be specified in a strictly increasing order.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.MessageId>> CopyMessages(
+        object chatId,
+        object fromChatId,
+        IReadOnlyList<long> messageIds,
+        CancellationToken cancellationToken = default)
+    {
+        return CopyMessages(new CopyMessagesRequest
+        {
+            ChatId = chatId,
+            FromChatId = fromChatId,
+            MessageIds = messageIds,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object.
     /// </summary>
     /// <remarks>
@@ -562,6 +1016,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> CreateChatInviteLink(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return CreateChatInviteLink(new CreateChatInviteLinkRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to create a subscription invite link for a channel chat. The bot must have the can_invite_users administrator rights. The link can be edited using the method editChatSubscriptionInviteLink or revoked using the method revokeChatInviteLink. Returns the new invite link as a ChatInviteLink object.
     /// </summary>
     /// <remarks>
@@ -593,6 +1069,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to create a subscription invite link for a channel chat. The bot must have the can_invite_users administrator rights. The link can be edited using the method editChatSubscriptionInviteLink or revoked using the method revokeChatInviteLink. Returns the new invite link as a ChatInviteLink object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target channel chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>subscription_period</term>
+    /// <description>Integer. Required. The number of seconds the subscription will be active for before the next payment. Currently, it must always be 2592000 (30 days).</description>
+    /// </item>
+    /// <item>
+    /// <term>subscription_price</term>
+    /// <description>Integer. Required. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-10000</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> CreateChatSubscriptionInviteLink(
+        object chatId,
+        long subscriptionPeriod,
+        long subscriptionPrice,
+        CancellationToken cancellationToken = default)
+    {
+        return CreateChatSubscriptionInviteLink(new CreateChatSubscriptionInviteLinkRequest
+        {
+            ChatId = chatId,
+            SubscriptionPeriod = subscriptionPeriod,
+            SubscriptionPrice = subscriptionPrice,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right. Returns information about the created topic as a ForumTopic object.
     /// </summary>
     /// <remarks>
@@ -621,6 +1131,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.ForumTopic>(TelegramMethods.CreateForumTopic, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right. Returns information about the created topic as a ForumTopic object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Topic name, 1-128 characters</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ForumTopic> CreateForumTopic(
+        object chatId,
+        string name,
+        CancellationToken cancellationToken = default)
+    {
+        return CreateForumTopic(new CreateForumTopicRequest
+        {
+            ChatId = chatId,
+            Name = name,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -727,6 +1265,52 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to create a link for an invoice. Returns the created invoice link as String on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>title</term>
+    /// <description>String. Required. Product name, 1-32 characters</description>
+    /// </item>
+    /// <item>
+    /// <term>description</term>
+    /// <description>String. Required. Product description, 1-255 characters</description>
+    /// </item>
+    /// <item>
+    /// <term>payload</term>
+    /// <description>String. Required. Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.</description>
+    /// </item>
+    /// <item>
+    /// <term>currency</term>
+    /// <description>String. Required. Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in Telegram Stars.</description>
+    /// </item>
+    /// <item>
+    /// <term>prices</term>
+    /// <description>Array of LabeledPrice. Required. Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<string> CreateInvoiceLink(
+        string title,
+        string description,
+        string payload,
+        string currency,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.LabeledPrice> prices,
+        CancellationToken cancellationToken = default)
+    {
+        return CreateInvoiceLink(new CreateInvoiceLinkRequest
+        {
+            Title = title,
+            Description = description,
+            Payload = payload,
+            Currency = currency,
+            Prices = prices,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -766,6 +1350,46 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of created sticker set owner</description>
+    /// </item>
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can&apos;t contain consecutive underscores and must end in &quot;_by_&lt;bot_username&gt;&quot;. &lt;bot_username&gt; is case insensitive. 1-64 characters.</description>
+    /// </item>
+    /// <item>
+    /// <term>title</term>
+    /// <description>String. Required. Sticker set title, 1-64 characters</description>
+    /// </item>
+    /// <item>
+    /// <term>stickers</term>
+    /// <description>Array of InputSticker. Required. A JSON-serialized list of 1-50 initial stickers to be added to the sticker set</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> CreateNewStickerSet(
+        long userId,
+        string name,
+        string title,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.InputSticker> stickers,
+        CancellationToken cancellationToken = default)
+    {
+        return CreateNewStickerSet(new CreateNewStickerSetRequest
+        {
+            UserId = userId,
+            Name = name,
+            Title = title,
+            Stickers = stickers,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -786,6 +1410,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.DeclineChatJoinRequest, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeclineChatJoinRequest(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeclineChatJoinRequest(new DeclineChatJoinRequestRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -816,6 +1468,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to decline a suggested post in a direct messages chat. The bot must have the &apos;can_manage_direct_messages&apos; administrator right in the corresponding channel chat. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer. Required. Unique identifier for the target direct messages chat</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Identifier of a suggested post message to decline</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeclineSuggestedPost(
+        long chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeclineSuggestedPost(new DeclineSuggestedPostRequest
+        {
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the &apos;can_delete_messages&apos; administrator right in the chat. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -843,6 +1523,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the &apos;can_delete_messages&apos; administrator right in the chat. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteAllMessageReactions(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteAllMessageReactions(new DeleteAllMessageReactionsRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -866,6 +1568,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection on behalf of which to delete the messages</description>
+    /// </item>
+    /// <item>
+    /// <term>message_ids</term>
+    /// <description>Array of Integer. Required. A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteBusinessMessages(
+        string businessConnectionId,
+        IReadOnlyList<long> messageIds,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteBusinessMessages(new DeleteBusinessMessagesRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            MessageIds = messageIds,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to delete a chat photo. Photos can&apos;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -885,6 +1615,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to delete a chat photo. Photos can&apos;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteChatPhoto(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteChatPhoto(new DeleteChatPhotoRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -901,6 +1653,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.DeleteChatStickerSet, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteChatStickerSet(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteChatStickerSet(new DeleteChatStickerSetRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -927,6 +1701,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to delete a forum topic along with all its messages in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_thread_id</term>
+    /// <description>Integer. Required. Unique identifier for the target message thread of the forum topic</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteForumTopic(
+        object chatId,
+        long messageThreadId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteForumTopic(new DeleteForumTopicRequest
+        {
+            ChatId = chatId,
+            MessageThreadId = messageThreadId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to delete a message, including service messages, with the following limitations: - A message can only be deleted if it was sent less than 48 hours ago. - Service messages about a supergroup, channel, or forum topic creation can&apos;t be deleted. - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago. - Bots can delete outgoing messages in private chats, groups, and supergroups. - Bots can delete incoming messages in private chats. - Bots granted can_post_messages permissions can delete outgoing messages in channels. - If the bot is an administrator of a group, it can delete any message there. - If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there. - If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -947,6 +1749,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.DeleteMessage, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to delete a message, including service messages, with the following limitations: - A message can only be deleted if it was sent less than 48 hours ago. - Service messages about a supergroup, channel, or forum topic creation can&apos;t be deleted. - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago. - Bots can delete outgoing messages in private chats, groups, and supergroups. - Bots can delete incoming messages in private chats. - Bots granted can_post_messages permissions can delete outgoing messages in channels. - If the bot is an administrator of a group, it can delete any message there. - If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there. - If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Identifier of the message to delete</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteMessage(
+        object chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteMessage(new DeleteMessageRequest
+        {
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -981,6 +1811,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the &apos;can_delete_messages&apos; administrator right in the chat. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Identifier of the target message</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteMessageReaction(
+        object chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteMessageReaction(new DeleteMessageReactionRequest
+        {
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to delete multiple messages simultaneously. If some of the specified messages can&apos;t be found, they are skipped. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -1001,6 +1859,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.DeleteMessages, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to delete multiple messages simultaneously. If some of the specified messages can&apos;t be found, they are skipped. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_ids</term>
+    /// <description>Array of Integer. Required. A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteMessages(
+        object chatId,
+        IReadOnlyList<long> messageIds,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteMessages(new DeleteMessagesRequest
+        {
+            ChatId = chatId,
+            MessageIds = messageIds,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1027,6 +1913,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to delete the list of the bot&apos;s commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success.
+    /// </summary>
+    public Task<bool> DeleteMyCommands(
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteMyCommands(new DeleteMyCommandsRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to delete a sticker from a set created by the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -1046,6 +1941,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to delete a sticker from a set created by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>String. Required. File identifier of the sticker</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteStickerFromSet(
+        string sticker,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteStickerFromSet(new DeleteStickerFromSetRequest
+        {
+            Sticker = sticker,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to delete a sticker set that was created by the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -1062,6 +1979,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.DeleteStickerSet, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to delete a sticker set that was created by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Sticker set name</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteStickerSet(
+        string name,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteStickerSet(new DeleteStickerSetRequest
+        {
+            Name = name,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1088,6 +2027,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>story_id</term>
+    /// <description>Integer. Required. Unique identifier of the story to delete</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> DeleteStory(
+        string businessConnectionId,
+        long storyId,
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteStory(new DeleteStoryRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            StoryId = storyId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -1104,6 +2071,15 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.DeleteWebhook, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success.
+    /// </summary>
+    public Task<bool> DeleteWebhook(
+        CancellationToken cancellationToken = default)
+    {
+        return DeleteWebhook(new DeleteWebhookRequest(), cancellationToken);
     }
 
     /// <summary>
@@ -1146,6 +2122,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the edited invite link as a ChatInviteLink object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>invite_link</term>
+    /// <description>String. Required. The invite link to edit</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> EditChatInviteLink(
+        object chatId,
+        string inviteLink,
+        CancellationToken cancellationToken = default)
+    {
+        return EditChatInviteLink(new EditChatInviteLinkRequest
+        {
+            ChatId = chatId,
+            InviteLink = inviteLink,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users administrator rights. Returns the edited invite link as a ChatInviteLink object.
     /// </summary>
     /// <remarks>
@@ -1170,6 +2174,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.ChatInviteLink>(TelegramMethods.EditChatSubscriptionInviteLink, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users administrator rights. Returns the edited invite link as a ChatInviteLink object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>invite_link</term>
+    /// <description>String. Required. The invite link to edit</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> EditChatSubscriptionInviteLink(
+        object chatId,
+        string inviteLink,
+        CancellationToken cancellationToken = default)
+    {
+        return EditChatSubscriptionInviteLink(new EditChatSubscriptionInviteLinkRequest
+        {
+            ChatId = chatId,
+            InviteLink = inviteLink,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1204,6 +2236,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_thread_id</term>
+    /// <description>Integer. Required. Unique identifier for the target message thread of the forum topic</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> EditForumTopic(
+        object chatId,
+        long messageThreadId,
+        CancellationToken cancellationToken = default)
+    {
+        return EditForumTopic(new EditForumTopicRequest
+        {
+            ChatId = chatId,
+            MessageThreadId = messageThreadId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to edit the name of the &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -1224,6 +2284,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.EditGeneralForumTopic, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to edit the name of the &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. New topic name, 1-128 characters</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> EditGeneralForumTopic(
+        object chatId,
+        string name,
+        CancellationToken cancellationToken = default)
+    {
+        return EditGeneralForumTopic(new EditGeneralForumTopicRequest
+        {
+            ChatId = chatId,
+            Name = name,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1278,6 +2366,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+    /// </summary>
+    public Task<bool> EditMessageCaption(
+        CancellationToken cancellationToken = default)
+    {
+        return EditMessageCaption(new EditMessageCaptionRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to edit a checklist on behalf of a connected business account. On success, the edited Message is returned.
     /// </summary>
     /// <remarks>
@@ -1310,6 +2407,46 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Message>(TelegramMethods.EditMessageChecklist, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to edit a checklist on behalf of a connected business account. On success, the edited Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection on behalf of which the message will be sent</description>
+    /// </item>
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Unique identifier for the target message</description>
+    /// </item>
+    /// <item>
+    /// <term>checklist</term>
+    /// <description>InputChecklist. Required. A JSON-serialized object for the new checklist</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> EditMessageChecklist(
+        string businessConnectionId,
+        object chatId,
+        long messageId,
+        PPSHGram.Telegram.Generated.Types.InputChecklist checklist,
+        CancellationToken cancellationToken = default)
+    {
+        return EditMessageChecklist(new EditMessageChecklistRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            ChatId = chatId,
+            MessageId = messageId,
+            Checklist = checklist,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1372,6 +2509,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>latitude</term>
+    /// <description>Float. Required. Latitude of new location</description>
+    /// </item>
+    /// <item>
+    /// <term>longitude</term>
+    /// <description>Float. Required. Longitude of new location</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> EditMessageLiveLocation(
+        double latitude,
+        double longitude,
+        CancellationToken cancellationToken = default)
+    {
+        return EditMessageLiveLocation(new EditMessageLiveLocationRequest
+        {
+            Latitude = latitude,
+            Longitude = longitude,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can&apos;t be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
     /// </summary>
     /// <remarks>
@@ -1411,6 +2576,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can&apos;t be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>media</term>
+    /// <description>InputMedia. Required. A JSON-serialized object for a new media content of the message</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> EditMessageMedia(
+        PPSHGram.Telegram.Generated.Types.InputMedia media,
+        CancellationToken cancellationToken = default)
+    {
+        return EditMessageMedia(new EditMessageMediaRequest
+        {
+            Media = media,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
     /// </summary>
     /// <remarks>
@@ -1443,6 +2630,15 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.EditMessageReplyMarkup, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+    /// </summary>
+    public Task<bool> EditMessageReplyMarkup(
+        CancellationToken cancellationToken = default)
+    {
+        return EditMessageReplyMarkup(new EditMessageReplyMarkupRequest(), cancellationToken);
     }
 
     /// <summary>
@@ -1497,6 +2693,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>text</term>
+    /// <description>String. Required. New text of the message, 1-4096 characters after entities parsing</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> EditMessageText(
+        string text,
+        CancellationToken cancellationToken = default)
+    {
+        return EditMessageText(new EditMessageTextRequest
+        {
+            Text = text,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns Story on success.
     /// </summary>
     /// <remarks>
@@ -1540,6 +2758,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns Story on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>story_id</term>
+    /// <description>Integer. Required. Unique identifier of the story to edit</description>
+    /// </item>
+    /// <item>
+    /// <term>content</term>
+    /// <description>InputStoryContent. Required. Content of the story</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Story> EditStory(
+        string businessConnectionId,
+        long storyId,
+        PPSHGram.Telegram.Generated.Types.InputStoryContent content,
+        CancellationToken cancellationToken = default)
+    {
+        return EditStory(new EditStoryRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            StoryId = storyId,
+            Content = content,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -1567,6 +2819,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Identifier of the user whose subscription will be edited</description>
+    /// </item>
+    /// <item>
+    /// <term>telegram_payment_charge_id</term>
+    /// <description>String. Required. Telegram payment identifier for the subscription</description>
+    /// </item>
+    /// <item>
+    /// <term>is_canceled</term>
+    /// <description>Boolean. Required. Pass True to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass False to allow the user to re-enable a subscription that was previously canceled by the bot.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> EditUserStarSubscription(
+        long userId,
+        string telegramPaymentChargeId,
+        bool isCanceled,
+        CancellationToken cancellationToken = default)
+    {
+        return EditUserStarSubscription(new EditUserStarSubscriptionRequest
+        {
+            UserId = userId,
+            TelegramPaymentChargeId = telegramPaymentChargeId,
+            IsCanceled = isCanceled,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.
     /// </summary>
     /// <remarks>
@@ -1583,6 +2869,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<string>(TelegramMethods.ExportChatInviteLink, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<string> ExportChatInviteLink(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return ExportChatInviteLink(new ExportChatInviteLinkRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1641,6 +2949,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to forward messages of any kind. Service messages and messages with protected content can&apos;t be forwarded. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>from_chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format @username)</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Message identifier in the chat specified in from_chat_id</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> ForwardMessage(
+        object chatId,
+        object fromChatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return ForwardMessage(new ForwardMessageRequest
+        {
+            ChatId = chatId,
+            FromChatId = fromChatId,
+            MessageId = messageId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to forward multiple messages of any kind. If some of the specified messages can&apos;t be found or forwarded, they are skipped. Service messages and messages with protected content can&apos;t be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
     /// </summary>
     /// <remarks>
@@ -1681,6 +3023,40 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<IReadOnlyList<PPSHGram.Telegram.Generated.Types.MessageId>>(TelegramMethods.ForwardMessages, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to forward multiple messages of any kind. If some of the specified messages can&apos;t be found or forwarded, they are skipped. Service messages and messages with protected content can&apos;t be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>from_chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format @username)</description>
+    /// </item>
+    /// <item>
+    /// <term>message_ids</term>
+    /// <description>Array of Integer. Required. A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to forward. The identifiers must be specified in a strictly increasing order.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.MessageId>> ForwardMessages(
+        object chatId,
+        object fromChatId,
+        IReadOnlyList<long> messageIds,
+        CancellationToken cancellationToken = default)
+    {
+        return ForwardMessages(new ForwardMessagesRequest
+        {
+            ChatId = chatId,
+            FromChatId = fromChatId,
+            MessageIds = messageIds,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1743,6 +3119,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns OwnedGifts on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetBusinessAccountGifts(
+        string businessConnectionId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetBusinessAccountGifts(new GetBusinessAccountGiftsRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns StarAmount on success.
     /// </summary>
     /// <remarks>
@@ -1759,6 +3157,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.StarAmount>(TelegramMethods.GetBusinessAccountStarBalance, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns StarAmount on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.StarAmount> GetBusinessAccountStarBalance(
+        string businessConnectionId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetBusinessAccountStarBalance(new GetBusinessAccountStarBalanceRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1781,6 +3201,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.BusinessConnection> GetBusinessConnection(
+        string businessConnectionId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetBusinessConnection(new GetBusinessConnectionRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get up-to-date information about the chat. Returns a ChatFullInfo object on success.
     /// </summary>
     /// <remarks>
@@ -1797,6 +3239,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.ChatFullInfo>(TelegramMethods.GetChat, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get up-to-date information about the chat. Returns a ChatFullInfo object on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup or channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatFullInfo> GetChat(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetChat(new GetChatRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1820,6 +3284,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<IReadOnlyList<PPSHGram.Telegram.Generated.Types.ChatMember>>(TelegramMethods.GetChatAdministrators, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get a list of administrators in a chat. Returns an Array of ChatMember objects.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup or channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.ChatMember>> GetChatAdministrators(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetChatAdministrators(new GetChatAdministratorsRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1882,6 +3368,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Returns the gifts owned by a chat. Returns OwnedGifts on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetChatGifts(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetChatGifts(new GetChatGiftsRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the bot is an administrator in the chat. Returns a ChatMember object on success.
     /// </summary>
     /// <remarks>
@@ -1905,6 +3413,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the bot is an administrator in the chat. Returns a ChatMember object on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatMember> GetChatMember(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetChatMember(new GetChatMemberRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the number of members in a chat. Returns Int on success.
     /// </summary>
     /// <remarks>
@@ -1921,6 +3457,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<long>(TelegramMethods.GetChatMemberCount, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get the number of members in a chat. Returns Int on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup or channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<long> GetChatMemberCount(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetChatMemberCount(new GetChatMemberCountRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -1943,6 +3501,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get the current value of the bot&apos;s menu button in a private chat, or the default menu button. Returns MenuButton on success.
+    /// </summary>
+    public Task<PPSHGram.Telegram.Generated.Types.MenuButton> GetChatMenuButton(
+        CancellationToken cancellationToken = default)
+    {
+        return GetChatMenuButton(new GetChatMenuButtonRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects.
     /// </summary>
     /// <remarks>
@@ -1962,6 +3529,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>custom_emoji_ids</term>
+    /// <description>Array of String. Required. A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Sticker>> GetCustomEmojiStickers(
+        IReadOnlyList<string> customEmojiIds,
+        CancellationToken cancellationToken = default)
+    {
+        return GetCustomEmojiStickers(new GetCustomEmojiStickersRequest
+        {
+            CustomEmojiIds = customEmojiIds,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where &lt;file_path&gt; is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
     /// </summary>
     /// <remarks>
@@ -1978,6 +3567,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.File>(TelegramMethods.GetFile, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where &lt;file_path&gt; is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>file_id</term>
+    /// <description>String. Required. File identifier to get information about</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.File> GetFile(
+        string fileId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetFile(new GetFileRequest
+        {
+            FileId = fileId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2012,6 +3623,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. Returns an Array of GameHighScore objects. This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Target user id</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.GameHighScore>> GetGameHighScores(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetGameHighScores(new GetGameHighScoresRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the access settings of a managed bot. Returns a BotAccessSettings object on success.
     /// </summary>
     /// <remarks>
@@ -2031,6 +3664,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get the access settings of a managed bot. Returns a BotAccessSettings object on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of the managed bot whose access settings will be returned</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.BotAccessSettings> GetManagedBotAccessSettings(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetManagedBotAccessSettings(new GetManagedBotAccessSettingsRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the token of a managed bot. Returns the token as String on success.
     /// </summary>
     /// <remarks>
@@ -2047,6 +3702,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<string>(TelegramMethods.GetManagedBotToken, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get the token of a managed bot. Returns the token as String on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of the managed bot whose token will be returned</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<string> GetManagedBotToken(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetManagedBotToken(new GetManagedBotTokenRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2073,6 +3750,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get the current list of the bot&apos;s commands for the given scope and user language. Returns an Array of BotCommand objects. If commands aren&apos;t set, an empty list is returned.
+    /// </summary>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.BotCommand>> GetMyCommands(
+        CancellationToken cancellationToken = default)
+    {
+        return GetMyCommands(new GetMyCommandsRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the current default administrator rights of the bot. Returns ChatAdministratorRights on success.
     /// </summary>
     /// <remarks>
@@ -2089,6 +3775,15 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.ChatAdministratorRights>(TelegramMethods.GetMyDefaultAdministratorRights, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get the current default administrator rights of the bot. Returns ChatAdministratorRights on success.
+    /// </summary>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatAdministratorRights> GetMyDefaultAdministratorRights(
+        CancellationToken cancellationToken = default)
+    {
+        return GetMyDefaultAdministratorRights(new GetMyDefaultAdministratorRightsRequest(), cancellationToken);
     }
 
     /// <summary>
@@ -2111,6 +3806,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get the current bot description for the given user language. Returns BotDescription on success.
+    /// </summary>
+    public Task<PPSHGram.Telegram.Generated.Types.BotDescription> GetMyDescription(
+        CancellationToken cancellationToken = default)
+    {
+        return GetMyDescription(new GetMyDescriptionRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the current bot name for the given user language. Returns BotName on success.
     /// </summary>
     /// <remarks>
@@ -2130,6 +3834,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get the current bot name for the given user language. Returns BotName on success.
+    /// </summary>
+    public Task<PPSHGram.Telegram.Generated.Types.BotName> GetMyName(
+        CancellationToken cancellationToken = default)
+    {
+        return GetMyName(new GetMyNameRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the current bot short description for the given user language. Returns BotShortDescription on success.
     /// </summary>
     /// <remarks>
@@ -2146,6 +3859,15 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.BotShortDescription>(TelegramMethods.GetMyShortDescription, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get the current bot short description for the given user language. Returns BotShortDescription on success.
+    /// </summary>
+    public Task<PPSHGram.Telegram.Generated.Types.BotShortDescription> GetMyShortDescription(
+        CancellationToken cancellationToken = default)
+    {
+        return GetMyShortDescription(new GetMyShortDescriptionRequest(), cancellationToken);
     }
 
     /// <summary>
@@ -2172,6 +3894,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Returns the bot&apos;s Telegram Star transactions in chronological order. On success, returns a StarTransactions object.
+    /// </summary>
+    public Task<PPSHGram.Telegram.Generated.Types.StarTransactions> GetStarTransactions(
+        CancellationToken cancellationToken = default)
+    {
+        return GetStarTransactions(new GetStarTransactionsRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get a sticker set. On success, a StickerSet object is returned.
     /// </summary>
     /// <remarks>
@@ -2188,6 +3919,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.StickerSet>(TelegramMethods.GetStickerSet, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get a sticker set. On success, a StickerSet object is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Name of the sticker set</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.StickerSet> GetStickerSet(
+        string name,
+        CancellationToken cancellationToken = default)
+    {
+        return GetStickerSet(new GetStickerSetRequest
+        {
+            Name = name,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2222,6 +3975,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to receive incoming updates using long polling (wiki). Returns an Array of Update objects.
+    /// </summary>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Update>> GetUpdates(
+        CancellationToken cancellationToken = default)
+    {
+        return GetUpdates(new GetUpdatesRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a UserChatBoosts object.
     /// </summary>
     /// <remarks>
@@ -2242,6 +4004,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.UserChatBoosts>(TelegramMethods.GetUserChatBoosts, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a UserChatBoosts object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the chat or username of the channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.UserChatBoosts> GetUserChatBoosts(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetUserChatBoosts(new GetUserChatBoostsRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2296,6 +4086,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Returns the gifts owned and hosted by a user. Returns OwnedGifts on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.OwnedGifts> GetUserGifts(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetUserGifts(new GetUserGiftsRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
     /// </summary>
     /// <remarks>
@@ -2316,6 +4128,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>>(TelegramMethods.GetUserPersonalChatMessages, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier for the target user</description>
+    /// </item>
+    /// <item>
+    /// <term>limit</term>
+    /// <description>Integer. Required. The maximum number of messages to return; 1-20</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>> GetUserPersonalChatMessages(
+        long userId,
+        long limit,
+        CancellationToken cancellationToken = default)
+    {
+        return GetUserPersonalChatMessages(new GetUserPersonalChatMessagesRequest
+        {
+            UserId = userId,
+            Limit = limit,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2346,6 +4186,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to get a list of profile audios for a user. Returns a UserProfileAudios object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.UserProfileAudios> GetUserProfileAudios(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetUserProfileAudios(new GetUserProfileAudiosRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
     /// </summary>
     /// <remarks>
@@ -2370,6 +4232,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.UserProfilePhotos>(TelegramMethods.GetUserProfilePhotos, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.UserProfilePhotos> GetUserProfilePhotos(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return GetUserProfilePhotos(new GetUserProfilePhotosRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2412,6 +4296,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Gifts a Telegram Premium subscription to the given user. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user who will receive a Telegram Premium subscription</description>
+    /// </item>
+    /// <item>
+    /// <term>month_count</term>
+    /// <description>Integer. Required. Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12</description>
+    /// </item>
+    /// <item>
+    /// <term>star_count</term>
+    /// <description>Integer. Required. Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> GiftPremiumSubscription(
+        long userId,
+        long monthCount,
+        long starCount,
+        CancellationToken cancellationToken = default)
+    {
+        return GiftPremiumSubscription(new GiftPremiumSubscriptionRequest
+        {
+            UserId = userId,
+            MonthCount = monthCount,
+            StarCount = starCount,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to hide the &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically closed if it was open. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2431,6 +4349,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to hide the &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically closed if it was open. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> HideGeneralForumTopic(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return HideGeneralForumTopic(new HideGeneralForumTopicRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2447,6 +4387,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.LeaveChat, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup or channel in the format @username. Channel direct messages chats aren&apos;t supported; leave the corresponding channel instead.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> LeaveChat(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return LeaveChat(new LeaveChatRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2478,6 +4440,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.PinChatMessage, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the &apos;can_pin_messages&apos; right or the &apos;can_edit_messages&apos; right to pin messages in groups and channels respectively. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Identifier of a message to pin</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> PinChatMessage(
+        object chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return PinChatMessage(new PinChatMessageRequest
+        {
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2529,6 +4519,40 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Story>(TelegramMethods.PostStory, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns Story on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>content</term>
+    /// <description>InputStoryContent. Required. Content of the story</description>
+    /// </item>
+    /// <item>
+    /// <term>active_period</term>
+    /// <description>Integer. Required. Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Story> PostStory(
+        string businessConnectionId,
+        PPSHGram.Telegram.Generated.Types.InputStoryContent content,
+        long activePeriod,
+        CancellationToken cancellationToken = default)
+    {
+        return PostStory(new PostStoryRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            Content = content,
+            ActivePeriod = activePeriod,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2623,6 +4647,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> PromoteChatMember(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return PromoteChatMember(new PromoteChatMemberRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2650,6 +4702,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection on behalf of which to read the message</description>
+    /// </item>
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer. Required. Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Unique identifier of the message to mark as read</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> ReadBusinessMessage(
+        string businessConnectionId,
+        long chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return ReadBusinessMessage(new ReadBusinessMessageRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Refunds a successful payment in Telegram Stars. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2670,6 +4756,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.RefundStarPayment, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Refunds a successful payment in Telegram Stars. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Identifier of the user whose payment will be refunded</description>
+    /// </item>
+    /// <item>
+    /// <term>telegram_payment_charge_id</term>
+    /// <description>String. Required. Telegram payment identifier</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> RefundStarPayment(
+        long userId,
+        string telegramPaymentChargeId,
+        CancellationToken cancellationToken = default)
+    {
+        return RefundStarPayment(new RefundStarPaymentRequest
+        {
+            UserId = userId,
+            TelegramPaymentChargeId = telegramPaymentChargeId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2696,6 +4810,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> RemoveBusinessAccountProfilePhoto(
+        string businessConnectionId,
+        CancellationToken cancellationToken = default)
+    {
+        return RemoveBusinessAccountProfilePhoto(new RemoveBusinessAccountProfilePhotoRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2715,6 +4851,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot or channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> RemoveChatVerification(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return RemoveChatVerification(new RemoveChatVerificationRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Removes verification from a user who is currently verified on behalf of the organization represented by the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2731,6 +4889,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.RemoveUserVerification, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Removes verification from a user who is currently verified on behalf of the organization represented by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> RemoveUserVerification(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return RemoveUserVerification(new RemoveUserVerificationRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2757,6 +4937,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_thread_id</term>
+    /// <description>Integer. Required. Unique identifier for the target message thread of the forum topic</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> ReopenForumTopic(
+        object chatId,
+        long messageThreadId,
+        CancellationToken cancellationToken = default)
+    {
+        return ReopenForumTopic(new ReopenForumTopicRequest
+        {
+            ChatId = chatId,
+            MessageThreadId = messageThreadId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to reopen a closed &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically unhidden if it was hidden. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2776,6 +4984,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to reopen a closed &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically unhidden if it was hidden. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> ReopenGeneralForumTopic(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return ReopenGeneralForumTopic(new ReopenGeneralForumTopicRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to revoke the current token of a managed bot and generate a new one. Returns the new token as String on success.
     /// </summary>
     /// <remarks>
@@ -2792,6 +5022,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<string>(TelegramMethods.ReplaceManagedBotToken, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to revoke the current token of a managed bot and generate a new one. Returns the new token as String on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of the managed bot whose token will be replaced</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<string> ReplaceManagedBotToken(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return ReplaceManagedBotToken(new ReplaceManagedBotTokenRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2823,6 +5075,46 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.ReplaceStickerInSet, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of the sticker set owner</description>
+    /// </item>
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Sticker set name</description>
+    /// </item>
+    /// <item>
+    /// <term>old_sticker</term>
+    /// <description>String. Required. File identifier of the replaced sticker</description>
+    /// </item>
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>InputSticker. Required. A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> ReplaceStickerInSet(
+        long userId,
+        string name,
+        string oldSticker,
+        PPSHGram.Telegram.Generated.Types.InputSticker sticker,
+        CancellationToken cancellationToken = default)
+    {
+        return ReplaceStickerInSet(new ReplaceStickerInSetRequest
+        {
+            UserId = userId,
+            Name = name,
+            OldSticker = oldSticker,
+            Sticker = sticker,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2865,6 +5157,46 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Reposts a story on behalf of a business account from another business account. Both business accounts must be managed by the same bot, and the story on the source account must have been posted (or reposted) by the bot. Requires the can_manage_stories business bot right for both business accounts. Returns Story on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>from_chat_id</term>
+    /// <description>Integer. Required. Unique identifier of the chat which posted the story that should be reposted</description>
+    /// </item>
+    /// <item>
+    /// <term>from_story_id</term>
+    /// <description>Integer. Required. Unique identifier of the story that should be reposted</description>
+    /// </item>
+    /// <item>
+    /// <term>active_period</term>
+    /// <description>Integer. Required. Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Story> RepostStory(
+        string businessConnectionId,
+        long fromChatId,
+        long fromStoryId,
+        long activePeriod,
+        CancellationToken cancellationToken = default)
+    {
+        return RepostStory(new RepostStoryRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            FromChatId = fromChatId,
+            FromStoryId = fromStoryId,
+            ActivePeriod = activePeriod,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -2900,6 +5232,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// <item>
+    /// <term>permissions</term>
+    /// <description>ChatPermissions. Required. A JSON-serialized object for new user permissions</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> RestrictChatMember(
+        object chatId,
+        long userId,
+        PPSHGram.Telegram.Generated.Types.ChatPermissions permissions,
+        CancellationToken cancellationToken = default)
+    {
+        return RestrictChatMember(new RestrictChatMemberRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+            Permissions = permissions,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as ChatInviteLink object.
     /// </summary>
     /// <remarks>
@@ -2920,6 +5286,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.ChatInviteLink>(TelegramMethods.RevokeChatInviteLink, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as ChatInviteLink object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier of the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>invite_link</term>
+    /// <description>String. Required. The invite link to revoke</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.ChatInviteLink> RevokeChatInviteLink(
+        object chatId,
+        string inviteLink,
+        CancellationToken cancellationToken = default)
+    {
+        return RevokeChatInviteLink(new RevokeChatInviteLinkRequest
+        {
+            ChatId = chatId,
+            InviteLink = inviteLink,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -2962,6 +5356,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Stores a message that can be sent by a user of a Mini App. Returns a PreparedInlineMessage object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user that can use the prepared message</description>
+    /// </item>
+    /// <item>
+    /// <term>result</term>
+    /// <description>InlineQueryResult. Required. A JSON-serialized object describing the message to be sent</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.PreparedInlineMessage> SavePreparedInlineMessage(
+        long userId,
+        PPSHGram.Telegram.Generated.Types.InlineQueryResult result,
+        CancellationToken cancellationToken = default)
+    {
+        return SavePreparedInlineMessage(new SavePreparedInlineMessageRequest
+        {
+            UserId = userId,
+            Result = result,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Stores a keyboard button that can be used by a user within a Mini App. Returns a PreparedKeyboardButton object.
     /// </summary>
     /// <remarks>
@@ -2982,6 +5404,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.PreparedKeyboardButton>(TelegramMethods.SavePreparedKeyboardButton, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Stores a keyboard button that can be used by a user within a Mini App. Returns a PreparedKeyboardButton object.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user that can use the button</description>
+    /// </item>
+    /// <item>
+    /// <term>button</term>
+    /// <description>KeyboardButton. Required. A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.PreparedKeyboardButton> SavePreparedKeyboardButton(
+        long userId,
+        PPSHGram.Telegram.Generated.Types.KeyboardButton button,
+        CancellationToken cancellationToken = default)
+    {
+        return SavePreparedKeyboardButton(new SavePreparedKeyboardButtonRequest
+        {
+            UserId = userId,
+            Button = button,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -3084,6 +5534,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>animation</term>
+    /// <description>InputFile or String. Required. Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendAnimation(
+        object chatId,
+        object animation,
+        CancellationToken cancellationToken = default)
+    {
+        return SendAnimation(new SendAnimationRequest
+        {
+            ChatId = chatId,
+            Animation = animation,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead.
     /// </summary>
     /// <remarks>
@@ -3175,6 +5653,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>audio</term>
+    /// <description>InputFile or String. Required. Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendAudio(
+        object chatId,
+        object audio,
+        CancellationToken cancellationToken = default)
+    {
+        return SendAudio(new SendAudioRequest
+        {
+            ChatId = chatId,
+            Audio = audio,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method when you need to tell the user that something is happening on the bot&apos;s side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns True on success. Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot. We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
     /// </summary>
     /// <remarks>
@@ -3203,6 +5709,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SendChatAction, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method when you need to tell the user that something is happening on the bot&apos;s side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns True on success. Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot. We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot or supergroup in the format @username. Channel chats and channel direct messages chats aren&apos;t supported.</description>
+    /// </item>
+    /// <item>
+    /// <term>action</term>
+    /// <description>String. Required. Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SendChatAction(
+        object chatId,
+        string action,
+        CancellationToken cancellationToken = default)
+    {
+        return SendChatAction(new SendChatActionRequest
+        {
+            ChatId = chatId,
+            Action = action,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -3250,6 +5784,40 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Message>(TelegramMethods.SendChecklist, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to send a checklist on behalf of a connected business account. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection on behalf of which the message will be sent</description>
+    /// </item>
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>checklist</term>
+    /// <description>InputChecklist. Required. A JSON-serialized object for the checklist to send</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendChecklist(
+        string businessConnectionId,
+        object chatId,
+        PPSHGram.Telegram.Generated.Types.InputChecklist checklist,
+        CancellationToken cancellationToken = default)
+    {
+        return SendChecklist(new SendChecklistRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            ChatId = chatId,
+            Checklist = checklist,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -3328,6 +5896,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send phone contacts. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>phone_number</term>
+    /// <description>String. Required. Contact&apos;s phone number</description>
+    /// </item>
+    /// <item>
+    /// <term>first_name</term>
+    /// <description>String. Required. Contact&apos;s first name</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendContact(
+        object chatId,
+        string phoneNumber,
+        string firstName,
+        CancellationToken cancellationToken = default)
+    {
+        return SendContact(new SendContactRequest
+        {
+            ChatId = chatId,
+            PhoneNumber = phoneNumber,
+            FirstName = firstName,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned.
     /// </summary>
     /// <remarks>
@@ -3388,6 +5990,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Message>(TelegramMethods.SendDice, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendDice(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return SendDice(new SendDiceRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -3474,6 +6098,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>document</term>
+    /// <description>InputFile or String. Required. File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendDocument(
+        object chatId,
+        object document,
+        CancellationToken cancellationToken = default)
+    {
+        return SendDocument(new SendDocumentRequest
+        {
+            ChatId = chatId,
+            Document = document,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send a game. On success, the sent Message is returned.
     /// </summary>
     /// <remarks>
@@ -3529,6 +6181,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send a game. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot in the format @username. Games can&apos;t be sent to channel direct messages chats and channel chats.</description>
+    /// </item>
+    /// <item>
+    /// <term>game_short_name</term>
+    /// <description>String. Required. Short name of the game, serves as the unique identifier for the game. Set up your games via @BotFather.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendGame(
+        object chatId,
+        string gameShortName,
+        CancellationToken cancellationToken = default)
+    {
+        return SendGame(new SendGameRequest
+        {
+            ChatId = chatId,
+            GameShortName = gameShortName,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Sends a gift to the given user or channel chat. The gift can&apos;t be converted to Telegram Stars by the receiver. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -3569,6 +6249,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SendGift, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Sends a gift to the given user or channel chat. The gift can&apos;t be converted to Telegram Stars by the receiver. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>gift_id</term>
+    /// <description>String. Required. Identifier of the gift; limited gifts can&apos;t be sent to channel chats</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SendGift(
+        string giftId,
+        CancellationToken cancellationToken = default)
+    {
+        return SendGift(new SendGiftRequest
+        {
+            GiftId = giftId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -3711,6 +6413,58 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send invoices. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>title</term>
+    /// <description>String. Required. Product name, 1-32 characters</description>
+    /// </item>
+    /// <item>
+    /// <term>description</term>
+    /// <description>String. Required. Product description, 1-255 characters</description>
+    /// </item>
+    /// <item>
+    /// <term>payload</term>
+    /// <description>String. Required. Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.</description>
+    /// </item>
+    /// <item>
+    /// <term>currency</term>
+    /// <description>String. Required. Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in Telegram Stars.</description>
+    /// </item>
+    /// <item>
+    /// <term>prices</term>
+    /// <description>Array of LabeledPrice. Required. Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendInvoice(
+        object chatId,
+        string title,
+        string description,
+        string payload,
+        string currency,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.LabeledPrice> prices,
+        CancellationToken cancellationToken = default)
+    {
+        return SendInvoice(new SendInvoiceRequest
+        {
+            ChatId = chatId,
+            Title = title,
+            Description = description,
+            Payload = payload,
+            Currency = currency,
+            Prices = prices,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send live photos. On success, the sent Message is returned.
     /// </summary>
     /// <remarks>
@@ -3798,6 +6552,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send live photos. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel (in the format @channelusername)</description>
+    /// </item>
+    /// <item>
+    /// <term>live_photo</term>
+    /// <description>InputFile or String. Required. Live photo video to send. The video must be no longer than 10 seconds and must not exceed 10 MB in size. Pass a file_id as String to send a video that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.</description>
+    /// </item>
+    /// <item>
+    /// <term>photo</term>
+    /// <description>InputFile or String. Required. The static photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendLivePhoto(
+        object chatId,
+        object livePhoto,
+        object photo,
+        CancellationToken cancellationToken = default)
+    {
+        return SendLivePhoto(new SendLivePhotoRequest
+        {
+            ChatId = chatId,
+            LivePhoto = livePhoto,
+            Photo = photo,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send point on the map. On success, the sent Message is returned.
     /// </summary>
     /// <remarks>
@@ -3881,6 +6669,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send point on the map. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>latitude</term>
+    /// <description>Float. Required. Latitude of the location</description>
+    /// </item>
+    /// <item>
+    /// <term>longitude</term>
+    /// <description>Float. Required. Longitude of the location</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendLocation(
+        object chatId,
+        double latitude,
+        double longitude,
+        CancellationToken cancellationToken = default)
+    {
+        return SendLocation(new SendLocationRequest
+        {
+            ChatId = chatId,
+            Latitude = latitude,
+            Longitude = longitude,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
     /// </summary>
     /// <remarks>
@@ -3933,6 +6755,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>>(TelegramMethods.SendMediaGroup, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>media</term>
+    /// <description>Array of InputMediaAudio, InputMediaDocument, InputMediaLivePhoto, InputMediaPhoto and InputMediaVideo. Required. A JSON-serialized array describing messages to be sent, must include 2-10 items</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>> SendMediaGroup(
+        object chatId,
+        IReadOnlyList<object> media,
+        CancellationToken cancellationToken = default)
+    {
+        return SendMediaGroup(new SendMediaGroupRequest
+        {
+            ChatId = chatId,
+            Media = media,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4011,6 +6861,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send text messages. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>text</term>
+    /// <description>String. Required. Text of the message to be sent, 1-4096 characters after entities parsing</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendMessage(
+        object chatId,
+        string text,
+        CancellationToken cancellationToken = default)
+    {
+        return SendMessage(new SendMessageRequest
+        {
+            ChatId = chatId,
+            Text = text,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user&apos;s chat. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -4047,6 +6925,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SendMessageDraft, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user&apos;s chat. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer. Required. Unique identifier for the target private chat</description>
+    /// </item>
+    /// <item>
+    /// <term>draft_id</term>
+    /// <description>Integer. Required. Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SendMessageDraft(
+        long chatId,
+        long draftId,
+        CancellationToken cancellationToken = default)
+    {
+        return SendMessageDraft(new SendMessageDraftRequest
+        {
+            ChatId = chatId,
+            DraftId = draftId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4133,6 +7039,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send paid media. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat&apos;s balance. Otherwise, they will be credited to the bot&apos;s balance.</description>
+    /// </item>
+    /// <item>
+    /// <term>star_count</term>
+    /// <description>Integer. Required. The number of Telegram Stars that must be paid to buy access to the media; 1-25000</description>
+    /// </item>
+    /// <item>
+    /// <term>media</term>
+    /// <description>Array of InputPaidMedia. Required. A JSON-serialized array describing the media to be sent; up to 10 items</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPaidMedia(
+        object chatId,
+        long starCount,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.InputPaidMedia> media,
+        CancellationToken cancellationToken = default)
+    {
+        return SendPaidMedia(new SendPaidMediaRequest
+        {
+            ChatId = chatId,
+            StarCount = starCount,
+            Media = media,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send photos. On success, the sent Message is returned.
     /// </summary>
     /// <remarks>
@@ -4213,6 +7153,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Message>(TelegramMethods.SendPhoto, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to send photos. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>photo</term>
+    /// <description>InputFile or String. Required. Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo&apos;s width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPhoto(
+        object chatId,
+        object photo,
+        CancellationToken cancellationToken = default)
+    {
+        return SendPhoto(new SendPhotoRequest
+        {
+            ChatId = chatId,
+            Photo = photo,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4367,6 +7335,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send a native poll. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Polls can&apos;t be sent to channel direct messages chats.</description>
+    /// </item>
+    /// <item>
+    /// <term>question</term>
+    /// <description>String. Required. Poll question, 1-300 characters</description>
+    /// </item>
+    /// <item>
+    /// <term>options</term>
+    /// <description>Array of InputPollOption. Required. A JSON-serialized list of 1-12 answer options</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendPoll(
+        object chatId,
+        string question,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.InputPollOption> options,
+        CancellationToken cancellationToken = default)
+    {
+        return SendPoll(new SendPollRequest
+        {
+            ChatId = chatId,
+            Question = question,
+            Options = options,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.
     /// </summary>
     /// <remarks>
@@ -4431,6 +7433,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Message>(TelegramMethods.SendSticker, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>InputFile or String. Required. Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. More information on Sending Files ». Video and animated stickers can&apos;t be sent via an HTTP URL.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendSticker(
+        object chatId,
+        object sticker,
+        CancellationToken cancellationToken = default)
+    {
+        return SendSticker(new SendStickerRequest
+        {
+            ChatId = chatId,
+            Sticker = sticker,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4522,6 +7552,52 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Message>(TelegramMethods.SendVenue, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to send information about a venue. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>latitude</term>
+    /// <description>Float. Required. Latitude of the venue</description>
+    /// </item>
+    /// <item>
+    /// <term>longitude</term>
+    /// <description>Float. Required. Longitude of the venue</description>
+    /// </item>
+    /// <item>
+    /// <term>title</term>
+    /// <description>String. Required. Name of the venue</description>
+    /// </item>
+    /// <item>
+    /// <term>address</term>
+    /// <description>String. Required. Address of the venue</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVenue(
+        object chatId,
+        double latitude,
+        double longitude,
+        string title,
+        string address,
+        CancellationToken cancellationToken = default)
+    {
+        return SendVenue(new SendVenueRequest
+        {
+            ChatId = chatId,
+            Latitude = latitude,
+            Longitude = longitude,
+            Title = title,
+            Address = address,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4636,6 +7712,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>video</term>
+    /// <description>InputFile or String. Required. Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideo(
+        object chatId,
+        object video,
+        CancellationToken cancellationToken = default)
+    {
+        return SendVideo(new SendVideoRequest
+        {
+            ChatId = chatId,
+            Video = video,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
     /// </summary>
     /// <remarks>
@@ -4708,6 +7812,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<PPSHGram.Telegram.Generated.Types.Message>(TelegramMethods.SendVideoNote, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>video_note</term>
+    /// <description>InputFile or String. Required. Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideoNote(
+        object chatId,
+        object videoNote,
+        CancellationToken cancellationToken = default)
+    {
+        return SendVideoNote(new SendVideoNoteRequest
+        {
+            ChatId = chatId,
+            VideoNote = videoNote,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4790,6 +7922,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>voice</term>
+    /// <description>InputFile or String. Required. Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Message> SendVoice(
+        object chatId,
+        object voice,
+        CancellationToken cancellationToken = default)
+    {
+        return SendVoice(new SendVoiceRequest
+        {
+            ChatId = chatId,
+            Voice = voice,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Changes the bio of a managed business account. Requires the can_change_bio business bot right. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -4810,6 +7970,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetBusinessAccountBio, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Changes the bio of a managed business account. Requires the can_change_bio business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetBusinessAccountBio(
+        string businessConnectionId,
+        CancellationToken cancellationToken = default)
+    {
+        return SetBusinessAccountBio(new SetBusinessAccountBioRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4840,6 +8022,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the can_change_gift_settings business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>show_gift_button</term>
+    /// <description>Boolean. Required. Pass True, if a button for sending a gift to the user or by the business account must always be shown in the input field</description>
+    /// </item>
+    /// <item>
+    /// <term>accepted_gift_types</term>
+    /// <description>AcceptedGiftTypes. Required. Types of gifts accepted by the business account</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetBusinessAccountGiftSettings(
+        string businessConnectionId,
+        bool showGiftButton,
+        PPSHGram.Telegram.Generated.Types.AcceptedGiftTypes acceptedGiftTypes,
+        CancellationToken cancellationToken = default)
+    {
+        return SetBusinessAccountGiftSettings(new SetBusinessAccountGiftSettingsRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            ShowGiftButton = showGiftButton,
+            AcceptedGiftTypes = acceptedGiftTypes,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Changes the first and last name of a managed business account. Requires the can_change_name business bot right. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -4864,6 +8080,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetBusinessAccountName, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Changes the first and last name of a managed business account. Requires the can_change_name business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>first_name</term>
+    /// <description>String. Required. The new value of the first name for the business account; 1-64 characters</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetBusinessAccountName(
+        string businessConnectionId,
+        string firstName,
+        CancellationToken cancellationToken = default)
+    {
+        return SetBusinessAccountName(new SetBusinessAccountNameRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            FirstName = firstName,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4894,6 +8138,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Changes the profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>photo</term>
+    /// <description>InputProfilePhoto. Required. The new profile photo to set</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetBusinessAccountProfilePhoto(
+        string businessConnectionId,
+        PPSHGram.Telegram.Generated.Types.InputProfilePhoto photo,
+        CancellationToken cancellationToken = default)
+    {
+        return SetBusinessAccountProfilePhoto(new SetBusinessAccountProfilePhotoRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            Photo = photo,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Changes the username of a managed business account. Requires the can_change_username business bot right. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -4914,6 +8186,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetBusinessAccountUsername, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Changes the username of a managed business account. Requires the can_change_username business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetBusinessAccountUsername(
+        string businessConnectionId,
+        CancellationToken cancellationToken = default)
+    {
+        return SetBusinessAccountUsername(new SetBusinessAccountUsernameRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4944,6 +8238,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// <item>
+    /// <term>custom_title</term>
+    /// <description>String. Required. New custom title for the administrator; 0-16 characters, emoji are not allowed</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetChatAdministratorCustomTitle(
+        object chatId,
+        long userId,
+        string customTitle,
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatAdministratorCustomTitle(new SetChatAdministratorCustomTitleRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+            CustomTitle = customTitle,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -4964,6 +8292,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetChatDescription, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetChatDescription(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatDescription(new SetChatDescriptionRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -4994,6 +8344,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the can_manage_tags administrator right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetChatMemberTag(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatMemberTag(new SetChatMemberTagRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change the bot&apos;s menu button in a private chat, or the default menu button. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5014,6 +8392,15 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetChatMenuButton, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to change the bot&apos;s menu button in a private chat, or the default menu button. Returns True on success.
+    /// </summary>
+    public Task<bool> SetChatMenuButton(
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatMenuButton(new SetChatMenuButtonRequest(), cancellationToken);
     }
 
     /// <summary>
@@ -5044,6 +8431,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>permissions</term>
+    /// <description>ChatPermissions. Required. A JSON-serialized object for new default chat permissions</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetChatPermissions(
+        object chatId,
+        PPSHGram.Telegram.Generated.Types.ChatPermissions permissions,
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatPermissions(new SetChatPermissionsRequest
+        {
+            ChatId = chatId,
+            Permissions = permissions,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to set a new profile photo for the chat. Photos can&apos;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5064,6 +8479,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetChatPhoto, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to set a new profile photo for the chat. Photos can&apos;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>photo</term>
+    /// <description>InputFile. Required. New chat photo, uploaded using multipart/form-data</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetChatPhoto(
+        object chatId,
+        PPSHGram.Telegram.Generated.Types.InputFile photo,
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatPhoto(new SetChatPhotoRequest
+        {
+            ChatId = chatId,
+            Photo = photo,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5090,6 +8533,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>sticker_set_name</term>
+    /// <description>String. Required. Name of the sticker set to be set as the group sticker set</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetChatStickerSet(
+        object chatId,
+        string stickerSetName,
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatStickerSet(new SetChatStickerSetRequest
+        {
+            ChatId = chatId,
+            StickerSetName = stickerSetName,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change the title of a chat. Titles can&apos;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5113,6 +8584,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the title of a chat. Titles can&apos;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>title</term>
+    /// <description>String. Required. New chat title, 1-128 characters</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetChatTitle(
+        object chatId,
+        string title,
+        CancellationToken cancellationToken = default)
+    {
+        return SetChatTitle(new SetChatTitleRequest
+        {
+            ChatId = chatId,
+            Title = title,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5133,6 +8632,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetCustomEmojiStickerSetThumbnail, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Sticker set name</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetCustomEmojiStickerSetThumbnail(
+        string name,
+        CancellationToken cancellationToken = default)
+    {
+        return SetCustomEmojiStickerSetThumbnail(new SetCustomEmojiStickerSetThumbnailRequest
+        {
+            Name = name,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5179,6 +8700,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user&apos;s current score in the chat and force is False.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier</description>
+    /// </item>
+    /// <item>
+    /// <term>score</term>
+    /// <description>Integer. Required. New score, must be non-negative</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetGameScore(
+        long userId,
+        long score,
+        CancellationToken cancellationToken = default)
+    {
+        return SetGameScore(new SetGameScoreRequest
+        {
+            UserId = userId,
+            Score = score,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change the access settings of a managed bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5203,6 +8752,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetManagedBotAccessSettings, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to change the access settings of a managed bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of the managed bot whose access settings will be changed</description>
+    /// </item>
+    /// <item>
+    /// <term>is_access_restricted</term>
+    /// <description>Boolean. Required. Pass True, if only selected users can access the bot. The bot&apos;s owner can always access it.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetManagedBotAccessSettings(
+        long userId,
+        bool isAccessRestricted,
+        CancellationToken cancellationToken = default)
+    {
+        return SetManagedBotAccessSettings(new SetManagedBotAccessSettingsRequest
+        {
+            UserId = userId,
+            IsAccessRestricted = isAccessRestricted,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5237,6 +8814,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the chosen reactions on a message. Service messages of some types can&apos;t be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can&apos;t use paid reactions. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetMessageReaction(
+        object chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return SetMessageReaction(new SetMessageReactionRequest
+        {
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change the list of the bot&apos;s commands. See this manual for more details about bot commands. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5264,6 +8869,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the list of the bot&apos;s commands. See this manual for more details about bot commands. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>commands</term>
+    /// <description>Array of BotCommand. Required. A JSON-serialized list of bot commands to be set as the list of the bot&apos;s commands. At most 100 commands can be specified.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetMyCommands(
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.BotCommand> commands,
+        CancellationToken cancellationToken = default)
+    {
+        return SetMyCommands(new SetMyCommandsRequest
+        {
+            Commands = commands,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change the default administrator rights requested by the bot when it&apos;s added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5284,6 +8911,15 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetMyDefaultAdministratorRights, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to change the default administrator rights requested by the bot when it&apos;s added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns True on success.
+    /// </summary>
+    public Task<bool> SetMyDefaultAdministratorRights(
+        CancellationToken cancellationToken = default)
+    {
+        return SetMyDefaultAdministratorRights(new SetMyDefaultAdministratorRightsRequest(), cancellationToken);
     }
 
     /// <summary>
@@ -5310,6 +8946,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the bot&apos;s description, which is shown in the chat with the bot if the chat is empty. Returns True on success.
+    /// </summary>
+    public Task<bool> SetMyDescription(
+        CancellationToken cancellationToken = default)
+    {
+        return SetMyDescription(new SetMyDescriptionRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change the bot&apos;s name. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5333,6 +8978,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the bot&apos;s name. Returns True on success.
+    /// </summary>
+    public Task<bool> SetMyName(
+        CancellationToken cancellationToken = default)
+    {
+        return SetMyName(new SetMyNameRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Changes the profile photo of the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5349,6 +9003,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetMyProfilePhoto, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Changes the profile photo of the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>photo</term>
+    /// <description>InputProfilePhoto. Required. The new profile photo to set</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetMyProfilePhoto(
+        PPSHGram.Telegram.Generated.Types.InputProfilePhoto photo,
+        CancellationToken cancellationToken = default)
+    {
+        return SetMyProfilePhoto(new SetMyProfilePhotoRequest
+        {
+            Photo = photo,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5375,6 +9051,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the bot&apos;s short description, which is shown on the bot&apos;s profile page and is sent together with the link when users share the bot. Returns True on success.
+    /// </summary>
+    public Task<bool> SetMyShortDescription(
+        CancellationToken cancellationToken = default)
+    {
+        return SetMyShortDescription(new SetMyShortDescriptionRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change). Returns True on success. Use this if the data submitted by the user doesn&apos;t satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
     /// </summary>
     /// <remarks>
@@ -5395,6 +9080,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetPassportDataErrors, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change). Returns True on success. Use this if the data submitted by the user doesn&apos;t satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier</description>
+    /// </item>
+    /// <item>
+    /// <term>errors</term>
+    /// <description>Array of PassportElementError. Required. A JSON-serialized array describing the errors</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetPassportDataErrors(
+        long userId,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.PassportElementError> errors,
+        CancellationToken cancellationToken = default)
+    {
+        return SetPassportDataErrors(new SetPassportDataErrorsRequest
+        {
+            UserId = userId,
+            Errors = errors,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5421,6 +9134,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>String. Required. File identifier of the sticker</description>
+    /// </item>
+    /// <item>
+    /// <term>emoji_list</term>
+    /// <description>Array of String. Required. A JSON-serialized list of 1-20 emoji associated with the sticker</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetStickerEmojiList(
+        string sticker,
+        IReadOnlyList<string> emojiList,
+        CancellationToken cancellationToken = default)
+    {
+        return SetStickerEmojiList(new SetStickerEmojiListRequest
+        {
+            Sticker = sticker,
+            EmojiList = emojiList,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5441,6 +9182,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetStickerKeywords, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>String. Required. File identifier of the sticker</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetStickerKeywords(
+        string sticker,
+        CancellationToken cancellationToken = default)
+    {
+        return SetStickerKeywords(new SetStickerKeywordsRequest
+        {
+            Sticker = sticker,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5467,6 +9230,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to change the mask position of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>String. Required. File identifier of the sticker</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetStickerMaskPosition(
+        string sticker,
+        CancellationToken cancellationToken = default)
+    {
+        return SetStickerMaskPosition(new SetStickerMaskPositionRequest
+        {
+            Sticker = sticker,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to move a sticker in a set created by the bot to a specific position. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5487,6 +9272,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetStickerPositionInSet, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to move a sticker in a set created by the bot to a specific position. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>String. Required. File identifier of the sticker</description>
+    /// </item>
+    /// <item>
+    /// <term>position</term>
+    /// <description>Integer. Required. New sticker position in the set, zero-based</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetStickerPositionInSet(
+        string sticker,
+        long position,
+        CancellationToken cancellationToken = default)
+    {
+        return SetStickerPositionInSet(new SetStickerPositionInSetRequest
+        {
+            Sticker = sticker,
+            Position = position,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5521,6 +9334,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Sticker set name</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of the sticker set owner</description>
+    /// </item>
+    /// <item>
+    /// <term>format</term>
+    /// <description>String. Required. Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a .WEBM video</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetStickerSetThumbnail(
+        string name,
+        long userId,
+        string format,
+        CancellationToken cancellationToken = default)
+    {
+        return SetStickerSetThumbnail(new SetStickerSetThumbnailRequest
+        {
+            Name = name,
+            UserId = userId,
+            Format = format,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to set the title of a created sticker set. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5541,6 +9388,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetStickerSetTitle, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to set the title of a created sticker set. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>name</term>
+    /// <description>String. Required. Sticker set name</description>
+    /// </item>
+    /// <item>
+    /// <term>title</term>
+    /// <description>String. Required. Sticker set title, 1-64 characters</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetStickerSetTitle(
+        string name,
+        string title,
+        CancellationToken cancellationToken = default)
+    {
+        return SetStickerSetTitle(new SetStickerSetTitleRequest
+        {
+            Name = name,
+            Title = title,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5568,6 +9443,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.SetUserEmojiStatus, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method requestEmojiStatusAccess. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetUserEmojiStatus(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return SetUserEmojiStatus(new SetUserEmojiStatusRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5614,6 +9511,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request (a request with response HTTP status code different from 2XY), we will repeat the request and give up after a reasonable amount of attempts. Returns True on success. If you&apos;d like to make sure that the webhook was set by you, you can specify secret data in the parameter secret_token. If specified, the request will contain a header “X-Telegram-Bot-Api-Secret-Token” with the secret token as content.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>url</term>
+    /// <description>String. Required. HTTPS URL to send updates to. Use an empty string to remove webhook integration.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> SetWebhook(
+        string url,
+        CancellationToken cancellationToken = default)
+    {
+        return SetWebhook(new SetWebhookRequest
+        {
+            Url = url,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
     /// </summary>
     /// <remarks>
@@ -5649,6 +9568,15 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
+    /// </summary>
+    public Task<bool> StopMessageLiveLocation(
+        CancellationToken cancellationToken = default)
+    {
+        return StopMessageLiveLocation(new StopMessageLiveLocationRequest(), cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to stop a poll which was sent by the bot. On success, the stopped Poll is returned.
     /// </summary>
     /// <remarks>
@@ -5680,6 +9608,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to stop a poll which was sent by the bot. On success, the stopped Poll is returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_id</term>
+    /// <description>Integer. Required. Identifier of the original message with the poll</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.Poll> StopPoll(
+        object chatId,
+        long messageId,
+        CancellationToken cancellationToken = default)
+    {
+        return StopPoll(new StopPollRequest
+        {
+            ChatId = chatId,
+            MessageId = messageId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Transfers Telegram Stars from the business account balance to the bot&apos;s balance. Requires the can_transfer_stars business bot right. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5700,6 +9656,34 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.TransferBusinessAccountStars, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Transfers Telegram Stars from the business account balance to the bot&apos;s balance. Requires the can_transfer_stars business bot right. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>star_count</term>
+    /// <description>Integer. Required. Number of Telegram Stars to transfer; 1-10000</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> TransferBusinessAccountStars(
+        string businessConnectionId,
+        long starCount,
+        CancellationToken cancellationToken = default)
+    {
+        return TransferBusinessAccountStars(new TransferBusinessAccountStarsRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            StarCount = starCount,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5734,6 +9718,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Transfers an owned unique gift to another user. Requires the can_transfer_and_upgrade_gifts business bot right. Requires can_transfer_stars business bot right if the transfer is paid. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>owned_gift_id</term>
+    /// <description>String. Required. Unique identifier of the regular gift that should be transferred</description>
+    /// </item>
+    /// <item>
+    /// <term>new_owner_chat_id</term>
+    /// <description>Integer. Required. Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> TransferGift(
+        string businessConnectionId,
+        string ownedGiftId,
+        long newOwnerChatId,
+        CancellationToken cancellationToken = default)
+    {
+        return TransferGift(new TransferGiftRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            OwnedGiftId = ownedGiftId,
+            NewOwnerChatId = newOwnerChatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don&apos;t want this, use the parameter only_if_banned. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5761,6 +9779,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don&apos;t want this, use the parameter only_if_banned. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target group or username of the target supergroup or channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UnbanChatMember(
+        object chatId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return UnbanChatMember(new UnbanChatMemberRequest
+        {
+            ChatId = chatId,
+            UserId = userId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5784,6 +9830,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>sender_chat_id</term>
+    /// <description>Integer. Required. Unique identifier of the target sender chat</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UnbanChatSenderChat(
+        object chatId,
+        long senderChatId,
+        CancellationToken cancellationToken = default)
+    {
+        return UnbanChatSenderChat(new UnbanChatSenderChatRequest
+        {
+            ChatId = chatId,
+            SenderChatId = senderChatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to unhide the &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5803,6 +9877,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to unhide the &apos;General&apos; topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UnhideGeneralForumTopic(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return UnhideGeneralForumTopic(new UnhideGeneralForumTopicRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to clear the list of pinned messages in a chat. In private chats and channel direct messages chats, no additional rights are required to unpin all pinned messages. Conversely, the bot must be an administrator with the &apos;can_pin_messages&apos; right or the &apos;can_edit_messages&apos; right to unpin all pinned messages in groups and channels respectively. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5819,6 +9915,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.UnpinAllChatMessages, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to clear the list of pinned messages in a chat. In private chats and channel direct messages chats, no additional rights are required to unpin all pinned messages. Conversely, the bot must be an administrator with the &apos;can_pin_messages&apos; right or the &apos;can_edit_messages&apos; right to unpin all pinned messages in groups and channels respectively. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UnpinAllChatMessages(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return UnpinAllChatMessages(new UnpinAllChatMessagesRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5845,6 +9963,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to clear the list of pinned messages in a forum topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// <item>
+    /// <term>message_thread_id</term>
+    /// <description>Integer. Required. Unique identifier for the target message thread of the forum topic</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UnpinAllForumTopicMessages(
+        object chatId,
+        long messageThreadId,
+        CancellationToken cancellationToken = default)
+    {
+        return UnpinAllForumTopicMessages(new UnpinAllForumTopicMessagesRequest
+        {
+            ChatId = chatId,
+            MessageThreadId = messageThreadId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5861,6 +10007,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.UnpinAllGeneralForumTopicMessages, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target supergroup in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UnpinAllGeneralForumTopicMessages(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return UnpinAllGeneralForumTopicMessages(new UnpinAllGeneralForumTopicMessagesRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5888,6 +10056,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.UnpinChatMessage, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the &apos;can_pin_messages&apos; right or the &apos;can_edit_messages&apos; right to unpin messages in groups and channels respectively. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target channel in the format @username</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UnpinChatMessage(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return UnpinChatMessage(new UnpinChatMessageRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
     }
 
     /// <summary>
@@ -5922,6 +10112,34 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>business_connection_id</term>
+    /// <description>String. Required. Unique identifier of the business connection</description>
+    /// </item>
+    /// <item>
+    /// <term>owned_gift_id</term>
+    /// <description>String. Required. Unique identifier of the regular gift that should be upgraded to a unique one</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> UpgradeGift(
+        string businessConnectionId,
+        string ownedGiftId,
+        CancellationToken cancellationToken = default)
+    {
+        return UpgradeGift(new UpgradeGiftRequest
+        {
+            BusinessConnectionId = businessConnectionId,
+            OwnedGiftId = ownedGiftId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded File on success.
     /// </summary>
     /// <remarks>
@@ -5949,6 +10167,40 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded File on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. User identifier of sticker file owner</description>
+    /// </item>
+    /// <item>
+    /// <term>sticker</term>
+    /// <description>InputFile. Required. A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See https://core.telegram.org/stickers for technical requirements. More information on Sending Files »</description>
+    /// </item>
+    /// <item>
+    /// <term>sticker_format</term>
+    /// <description>String. Required. Format of the sticker, must be one of “static”, “animated”, “video”</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<PPSHGram.Telegram.Generated.Types.File> UploadStickerFile(
+        long userId,
+        PPSHGram.Telegram.Generated.Types.InputFile sticker,
+        string stickerFormat,
+        CancellationToken cancellationToken = default)
+    {
+        return UploadStickerFile(new UploadStickerFileRequest
+        {
+            UserId = userId,
+            Sticker = sticker,
+            StickerFormat = stickerFormat,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Verifies a chat on behalf of the organization which is represented by the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5972,6 +10224,28 @@ public sealed partial class Api : TelegramApiClient
     }
 
     /// <summary>
+    /// Verifies a chat on behalf of the organization which is represented by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>chat_id</term>
+    /// <description>Integer or String. Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Channel direct messages chats can&apos;t be verified.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> VerifyChat(
+        object chatId,
+        CancellationToken cancellationToken = default)
+    {
+        return VerifyChat(new VerifyChatRequest
+        {
+            ChatId = chatId,
+        }, cancellationToken);
+    }
+
+    /// <summary>
     /// Verifies a user on behalf of the organization which is represented by the bot. Returns True on success.
     /// </summary>
     /// <remarks>
@@ -5992,6 +10266,28 @@ public sealed partial class Api : TelegramApiClient
         CancellationToken cancellationToken = default)
     {
         return CallAsync<bool>(TelegramMethods.VerifyUser, request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Verifies a user on behalf of the organization which is represented by the bot. Returns True on success.
+    /// </summary>
+    /// <remarks>
+    /// <para>Parameters:</para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term>user_id</term>
+    /// <description>Integer. Required. Unique identifier of the target user</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    public Task<bool> VerifyUser(
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return VerifyUser(new VerifyUserRequest
+        {
+            UserId = userId,
+        }, cancellationToken);
     }
 
 }

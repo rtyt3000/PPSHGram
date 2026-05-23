@@ -52,4 +52,14 @@ internal static class CSharpNaming
             ? $"{propertyName}Value"
             : propertyName;
     }
+
+    public static string ToParameterName(string value)
+    {
+        var pascalName = ToPascalCase(value).TrimStart('@');
+        var parameterName = pascalName.Length == 0
+            ? "value"
+            : $"{char.ToLower(pascalName[0], CultureInfo.InvariantCulture)}{pascalName[1..]}";
+
+        return Keywords.Contains(parameterName) ? $"@{parameterName}" : parameterName;
+    }
 }

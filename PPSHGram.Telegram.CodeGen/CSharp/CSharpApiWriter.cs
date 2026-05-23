@@ -44,7 +44,7 @@ internal static class CSharpApiWriter
     {
         var methodName = CSharpNaming.ToPascalCase(method.Name);
         var requestName = $"{methodName}Request";
-        var returnType = QualifyReturnType(CSharpTypeMapper.Map(method.ReturnType, required: true));
+        var returnType = QualifyApiType(CSharpTypeMapper.Map(method.ReturnType, required: true));
 
         CSharpXmlDocs.WriteSummary(builder, method.Description, 4);
         CSharpXmlDocs.WriteParameterRemarks(
@@ -58,16 +58,78 @@ internal static class CSharpApiWriter
         builder.AppendLine($"        return CallAsync<{returnType}>(TelegramMethods.{methodName}, request, cancellationToken);");
         builder.AppendLine("    }");
         builder.AppendLine();
+
+        WriteRequiredParametersOverload(builder, method, methodName, requestName, returnType);
     }
 
-    private static string QualifyReturnType(string csharpType)
+    private static void WriteRequiredParametersOverload(
+        StringBuilder builder,
+        TelegramMethod method,
+        string methodName,
+        string requestName,
+        string returnType)
+    {
+        var requiredParameters = method.Parameters
+            .Where(parameter => parameter.Required)
+            .ToArray();
+
+        CSharpXmlDocs.WriteSummary(builder, method.Description, 4);
+        CSharpXmlDocs.WriteParameterRemarks(
+            builder,
+            requiredParameters.Select(parameter => (parameter.Name, parameter.Type, parameter.Required, parameter.Description)),
+            4);
+
+        builder.AppendLine($"    public Task<{returnType}> {methodName}(");
+        foreach (var parameter in requiredParameters)
+        {
+            var parameterType = QualifyApiType(CSharpTypeMapper.Map(parameter.Type, required: true));
+            var parameterName = CSharpNaming.ToParameterName(parameter.Name);
+            if (parameterName == "cancellationToken")
+            {
+                parameterName = "cancellationTokenValue";
+            }
+
+            builder.AppendLine($"        {parameterType} {parameterName},");
+        }
+
+        builder.AppendLine("        CancellationToken cancellationToken = default)");
+        builder.AppendLine("    {");
+
+        if (requiredParameters.Length == 0)
+        {
+            builder.AppendLine($"        return {methodName}(new {requestName}(), cancellationToken);");
+        }
+        else
+        {
+            builder.AppendLine($"        return {methodName}(new {requestName}");
+            builder.AppendLine("        {");
+            foreach (var parameter in requiredParameters)
+            {
+                var propertyName = CSharpNaming.ToPropertyName(parameter.Name, requestName);
+                var parameterName = CSharpNaming.ToParameterName(parameter.Name);
+                if (parameterName == "cancellationToken")
+                {
+                    parameterName = "cancellationTokenValue";
+                }
+
+                builder.AppendLine($"            {propertyName} = {parameterName},");
+            }
+
+            builder.AppendLine("        }, cancellationToken);");
+        }
+
+        builder.AppendLine("    }");
+        builder.AppendLine();
+    }
+
+    private static string QualifyApiType(string csharpType)
     {
         const string listPrefix = "IReadOnlyList<";
 
         if (csharpType.StartsWith(listPrefix, StringComparison.Ordinal) && csharpType.EndsWith(">", StringComparison.Ordinal))
         {
             var inner = csharpType[listPrefix.Length..^1];
-            return $"{listPrefix}{QualifyReturnType(inner)}>";
+            return $"{listPrefix}{QualifyApiType(inner)}>";
         }
 
         return IsGeneratedType(csharpType)
