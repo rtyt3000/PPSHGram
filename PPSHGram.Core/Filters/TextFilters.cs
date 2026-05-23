@@ -20,6 +20,8 @@ public sealed class TextAttribute : HandlerFilterAttribute
 
     public bool IgnoreCase { get; init; } = true;
 
+    public override Type ContextType => typeof(MessageContextBase);
+
     public override bool Matches(IContext context)
     {
         return ContextFilterData.MatchesText(
@@ -47,6 +49,8 @@ public sealed class CaptionAttribute : HandlerFilterAttribute
 
     public bool IgnoreCase { get; init; } = true;
 
+    public override Type ContextType => typeof(MessageContextBase);
+
     public override bool Matches(IContext context)
     {
         return ContextFilterData.MatchesText(
@@ -67,6 +71,8 @@ public sealed class CommandAttribute : HandlerFilterAttribute
     public string Command { get; }
 
     public bool IgnoreCase { get; init; } = true;
+
+    public override Type ContextType => typeof(MessageContextBase);
 
     public override bool Matches(IContext context)
     {
@@ -102,6 +108,8 @@ public sealed class CallbackDataAttribute : HandlerFilterAttribute
     public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
 
     public bool IgnoreCase { get; init; } = false;
+
+    public override Type ContextType => typeof(CallbackQueryContext);
 
     public override bool Matches(IContext context)
     {

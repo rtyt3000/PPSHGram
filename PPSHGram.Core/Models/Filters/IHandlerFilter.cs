@@ -8,5 +8,7 @@ public interface IHandlerFilter
 
     bool Negate { get; }
 
+    Type ContextType { get; }
+
     bool Matches(IContext context);
 }
