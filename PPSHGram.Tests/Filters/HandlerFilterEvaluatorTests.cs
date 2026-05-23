@@ -2,9 +2,9 @@ using FluentAssertions;
 using PPSHGram.Core.Models.Context;
 using PPSHGram.Core.Models.Filters;
 using PPSHGram.Telegram;
-using Xunit;
+using PPSHGram.Telegram.Generated.Types;
 
-namespace PPSHGram.Tests;
+namespace PPSHGram.Tests.Filters;
 
 public class HandlerFilterEvaluatorTests
 {
@@ -74,6 +74,8 @@ public class HandlerFilterEvaluatorTests
     private sealed class TestContext : IContext
     {
         public Api Api { get; } = new("test-token");
+
+        public Update Update { get; } = new();
     }
 
     private sealed class AlwaysMatchAttribute : HandlerFilterAttribute

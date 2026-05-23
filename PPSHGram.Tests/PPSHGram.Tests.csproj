@@ -24,4 +24,8 @@
       <ProjectReference Include="..\PPSHGram.Telegram\PPSHGram.Telegram.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\" />
+    </ItemGroup>
+
 </Project>
