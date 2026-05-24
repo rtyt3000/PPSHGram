@@ -13,6 +13,17 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PPSHGram.Telegram\PPSHGram.Telegram.csproj" />
+      <ProjectReference Include="..\PPSHGram.Analyzers\PPSHGram.Analyzers.csproj"
+                        OutputItemType="Analyzer"
+                        ReferenceOutputAssembly="false"
+                        PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\PPSHGram.Analyzers\bin\$(Configuration)\netstandard2.0\PPSHGram.Analyzers.dll"
+            Pack="true"
+            PackagePath="analyzers/dotnet/cs/"
+            Visible="false" />
     </ItemGroup>
 
 </Project>
