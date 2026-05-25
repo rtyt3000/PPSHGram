@@ -83,7 +83,7 @@ public sealed partial class SendMediaGroupRequest
     /// A JSON-serialized array describing messages to be sent, must include 2-10 items
     /// </summary>
     [JsonPropertyName("media")]
-    public IReadOnlyList<object> Media { get; init; } = default!;
+    public IReadOnlyList<InputMedia> Media { get; init; } = default!;
 
     /// <summary>
     /// Sends messages silently. Users will receive a notification with no sound.

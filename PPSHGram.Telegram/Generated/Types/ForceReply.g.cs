@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot&apos;s message and tapped &apos;Reply&apos;). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice privacy mode. Not supported in channels and for messages sent on behalf of a user account.
 /// </summary>
-public sealed partial class ForceReply
+public sealed partial class ForceReply : ReplyMarkup
 {
     /// <summary>
     /// Shows reply interface to the user, as if they manually selected the bot&apos;s message and tapped &apos;Reply&apos;

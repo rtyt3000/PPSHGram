@@ -6,6 +6,6 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents the Telegram Bot API InputMedia type.
 /// </summary>
-public partial class InputMedia
+public partial interface InputMedia
 {
 }

@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a general file to be sent.
 /// </summary>
-public sealed partial class InputMediaDocument
+public sealed partial class InputMediaDocument : InputMedia
 {
     /// <summary>
     /// Type of the result, must be document

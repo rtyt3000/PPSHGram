@@ -133,6 +133,6 @@ public sealed partial class SendDiceRequest
     /// Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
     /// </summary>
     [JsonPropertyName("reply_markup")]
-    public object? ReplyMarkup { get; init; }
+    public ReplyMarkup? ReplyMarkup { get; init; }
 
 }

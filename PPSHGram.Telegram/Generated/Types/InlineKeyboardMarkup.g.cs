@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// This object represents an inline keyboard that appears right next to the message it belongs to.
 /// </summary>
-public sealed partial class InlineKeyboardMarkup
+public sealed partial class InlineKeyboardMarkup : ReplyMarkup
 {
     /// <summary>
     /// Array of button rows, each represented by an Array of InlineKeyboardButton objects

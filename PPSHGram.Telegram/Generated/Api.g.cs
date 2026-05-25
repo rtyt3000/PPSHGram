@@ -6775,7 +6775,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<IReadOnlyList<PPSHGram.Telegram.Generated.Types.Message>> SendMediaGroup(
         object chatId,
-        IReadOnlyList<object> media,
+        IReadOnlyList<PPSHGram.Telegram.Generated.Types.InputMedia> media,
         CancellationToken cancellationToken = default)
     {
         return SendMediaGroup(new SendMediaGroupRequest

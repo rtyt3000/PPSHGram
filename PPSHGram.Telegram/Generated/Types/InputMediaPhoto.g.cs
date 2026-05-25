@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a photo to be sent.
 /// </summary>
-public sealed partial class InputMediaPhoto
+public sealed partial class InputMediaPhoto : InputMedia
 {
     /// <summary>
     /// Type of the result, must be photo

@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents an audio file to be treated as music to be sent.
 /// </summary>
-public sealed partial class InputMediaAudio
+public sealed partial class InputMediaAudio : InputMedia
 {
     /// <summary>
     /// Type of the result, must be audio

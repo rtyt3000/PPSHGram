@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a live photo to be sent.
 /// </summary>
-public sealed partial class InputMediaLivePhoto
+public sealed partial class InputMediaLivePhoto : InputMedia
 {
     /// <summary>
     /// Type of the result, must be live_photo

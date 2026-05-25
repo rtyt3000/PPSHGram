@@ -1,13 +1,19 @@
 using System.Text.RegularExpressions;
+using PPSHGram.Telegram.CodeGen.Schema;
 
 namespace PPSHGram.Telegram.CodeGen.CSharp;
 
 internal static partial class CSharpTypeMapper
 {
-    public static string Map(string telegramType, bool required)
+    public static string Map(TelegramField field)
+    {
+        return Map(field.Type, field.Required, field.Name);
+    }
+
+    public static string Map(string telegramType, bool required, string? fieldName = null)
     {
         var normalized = Normalize(telegramType);
-        var result = MapRequired(normalized);
+        var result = MapRequired(normalized, fieldName);
 
         if (!required && CanBeNullable(result))
         {
@@ -24,22 +30,51 @@ internal static partial class CSharpTypeMapper
             && !IsKnownValueType(csharpType);
     }
 
-    public static IReadOnlyList<string> GetReferencedTypeNames(string telegramType)
+    public static IReadOnlyList<string> GetReferencedTypeNames(TelegramField field)
     {
-        return SplitUnionParts(Normalize(telegramType))
+        return GetReferencedTypeNames(field.Type, field.Name);
+    }
+
+    public static IReadOnlyList<string> GetReferencedTypeNames(string telegramType, string? fieldName = null)
+    {
+        var normalized = Normalize(telegramType);
+        var referencedTypes = SplitUnionParts(normalized)
             .Select(UnwrapArray)
-            .Select(MapRequired)
+            .Select(part => MapRequired(part, null))
             .SelectMany(ExtractGenericArguments)
             .Where(IsPotentialTypeName)
+            .ToArray();
+
+        if (!TryGetUnionMapping(normalized, fieldName, out var unionMapping))
+        {
+            return referencedTypes
+                .Distinct(StringComparer.Ordinal)
+                .ToArray();
+        }
+
+        return referencedTypes
+            .Append(unionMapping.TypeName)
             .Distinct(StringComparer.Ordinal)
             .ToArray();
     }
 
-    private static string MapRequired(string type)
+    public static CSharpUnionMapping? GetUnionMapping(TelegramField field)
     {
-        if (TryMapArray(type, out var arrayType))
+        return TryGetUnionMapping(Normalize(field.Type), field.Name, out var unionMapping)
+            ? unionMapping
+            : null;
+    }
+
+    private static string MapRequired(string type, string? fieldName)
+    {
+        if (TryMapArray(type, fieldName, out var arrayType))
         {
             return arrayType;
+        }
+
+        if (TryGetUnionMapping(type, fieldName, out var unionMapping))
+        {
+            return unionMapping.TypeName;
         }
 
         if (type.Contains(" or ", StringComparison.OrdinalIgnoreCase))
@@ -64,7 +99,7 @@ internal static partial class CSharpTypeMapper
         };
     }
 
-    private static bool TryMapArray(string type, out string csharpType)
+    private static bool TryMapArray(string type, string? fieldName, out string csharpType)
     {
         var match = ArrayRegex().Match(type);
         if (!match.Success)
@@ -73,9 +108,89 @@ internal static partial class CSharpTypeMapper
             return false;
         }
 
-        var inner = MapRequired(match.Groups["inner"].Value);
+        var inner = MapRequired(match.Groups["inner"].Value, fieldName);
         csharpType = $"IReadOnlyList<{inner}>";
         return true;
+    }
+
+    private static bool TryGetUnionMapping(
+        string type,
+        string? fieldName,
+        out CSharpUnionMapping unionMapping)
+    {
+        var arrayMatch = ArrayRegex().Match(type);
+        if (arrayMatch.Success)
+        {
+            return TryGetUnionMapping(arrayMatch.Groups["inner"].Value, fieldName, out unionMapping);
+        }
+
+        if (!type.Contains(" or ", StringComparison.OrdinalIgnoreCase))
+        {
+            unionMapping = default!;
+            return false;
+        }
+
+        var partTypeNames = SplitUnionParts(type)
+            .Select(part => MapRequired(part, null))
+            .ToArray();
+
+        if (partTypeNames.Length < 2 || partTypeNames.Any(part => !IsPotentialTypeName(part)))
+        {
+            unionMapping = default!;
+            return false;
+        }
+
+        var unionTypeName = InferUnionTypeName(partTypeNames, fieldName);
+        if (unionTypeName.Length == 0)
+        {
+            unionMapping = default!;
+            return false;
+        }
+
+        unionMapping = new CSharpUnionMapping(unionTypeName, partTypeNames);
+        return true;
+    }
+
+    private static string InferUnionTypeName(IReadOnlyList<string> partTypeNames, string? fieldName)
+    {
+        var commonPrefix = GetCommonTypePrefix(partTypeNames);
+        if (commonPrefix.Length > 0)
+        {
+            return commonPrefix;
+        }
+
+        return string.IsNullOrWhiteSpace(fieldName)
+            ? string.Empty
+            : CSharpNaming.ToPascalCase(fieldName);
+    }
+
+    private static string GetCommonTypePrefix(IReadOnlyList<string> typeNames)
+    {
+        var prefix = typeNames[0];
+        foreach (var typeName in typeNames.Skip(1))
+        {
+            var length = 0;
+            while (length < prefix.Length
+                && length < typeName.Length
+                && prefix[length] == typeName[length])
+            {
+                length++;
+            }
+
+            prefix = prefix[..length];
+        }
+
+        while (prefix.Length > 0 && typeNames.Any(typeName => !IsWordBoundary(typeName, prefix.Length)))
+        {
+            prefix = prefix[..^1];
+        }
+
+        return prefix;
+    }
+
+    private static bool IsWordBoundary(string typeName, int index)
+    {
+        return index == typeName.Length || char.IsUpper(typeName[index]) || char.IsDigit(typeName[index]);
     }
 
     private static string Normalize(string type)
@@ -157,3 +272,5 @@ internal static partial class CSharpTypeMapper
     [GeneratedRegex(@"\s+")]
     private static partial Regex WhitespaceRegex();
 }
+
+internal sealed record CSharpUnionMapping(string TypeName, IReadOnlyList<string> PartTypeNames);

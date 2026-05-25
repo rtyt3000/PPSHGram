@@ -28,7 +28,7 @@ public abstract class MessageContextBase(Api api, Update update, Message message
     public Task<Message> Answer(
         string text,
         string? parseMode = null,
-        object? replyMarkup = null,
+        ReplyMarkup? replyMarkup = null,
         CancellationToken cancellationToken = default)
     {
         return Api.SendMessage(CreateSendMessageRequest(text, parseMode, replyMarkup, replyParameters: null), cancellationToken);
@@ -37,7 +37,7 @@ public abstract class MessageContextBase(Api api, Update update, Message message
     public Task<Message> Reply(
         string text,
         string? parseMode = null,
-        object? replyMarkup = null,
+        ReplyMarkup? replyMarkup = null,
         CancellationToken cancellationToken = default)
     {
         var replyParameters = new ReplyParameters
@@ -73,7 +73,7 @@ public abstract class MessageContextBase(Api api, Update update, Message message
     private SendMessageRequest CreateSendMessageRequest(
         string text,
         string? parseMode,
-        object? replyMarkup,
+        ReplyMarkup? replyMarkup,
         ReplyParameters? replyParameters)
     {
         return new SendMessageRequest

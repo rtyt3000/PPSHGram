@@ -33,7 +33,7 @@ internal static class CSharpRequestWriter
 
     private static void WriteProperty(StringBuilder builder, string containingTypeName, TelegramField parameter)
     {
-        var csharpType = CSharpTypeMapper.Map(parameter.Type, parameter.Required);
+        var csharpType = CSharpTypeMapper.Map(parameter);
         var propertyName = CSharpNaming.ToPropertyName(parameter.Name, containingTypeName);
         var initializer = CSharpTypeMapper.NeedsDefaultInitializer(csharpType, parameter.Required) ? " = default!;" : string.Empty;
 

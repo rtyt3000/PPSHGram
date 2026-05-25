@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a video to be sent.
 /// </summary>
-public sealed partial class InputMediaVideo
+public sealed partial class InputMediaVideo : InputMedia
 {
     /// <summary>
     /// Type of the result, must be video

@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// This object represents a custom keyboard with reply options (see Introduction to bots for details and examples). Not supported in channels and for messages sent on behalf of a business account.
 /// </summary>
-public sealed partial class ReplyKeyboardMarkup
+public sealed partial class ReplyKeyboardMarkup : ReplyMarkup
 {
     /// <summary>
     /// Array of button rows, each represented by an Array of KeyboardButton objects
