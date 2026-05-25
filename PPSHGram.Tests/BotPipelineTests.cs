@@ -76,6 +76,17 @@ public class BotPipelineTests
         request.RootElement.GetProperty("limit").GetInt64().Should().Be(10);
     }
 
+    [Fact]
+    public async Task Api_calls_support_telegram_token_with_colon()
+    {
+        var handler = new CapturingHandler(() => """{"ok":true,"result":[]}""");
+        using var api = new Api("8153122985:secret", new HttpClient(handler), new Uri("https://telegram.test/"));
+
+        await api.GetUpdates();
+
+        handler.RequestUris.Should().Equal("/bot8153122985:secret/getUpdates");
+    }
+
     private static Bot CreateBot(IServiceProvider? serviceProvider = null)
     {
         var handler = new CapturingHandler(() => """{"ok":true,"result":true}""");

@@ -97,7 +97,7 @@ public abstract class TelegramApiClient : IDisposable
 
     private Uri CreateMethodUri(string method)
     {
-        return new Uri(BaseAddress, $"bot{Token}/{method}");
+        return new Uri(BaseAddress, $"./bot{Token}/{method}");
     }
 
     private static Uri EnsureTrailingSlash(Uri uri)
