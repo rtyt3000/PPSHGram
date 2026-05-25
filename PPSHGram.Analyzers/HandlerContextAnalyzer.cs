@@ -9,6 +9,11 @@ namespace PPSHGram.Analyzers;
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
 {
+    internal const string ContextMismatchDiagnosticId = "PPSHG001";
+    internal const string MissingContextDiagnosticId = "PPSHG002";
+    internal const string RequiredContextMetadataNameProperty = "RequiredContextMetadataName";
+    internal const string RequiredContextDisplayNameProperty = "RequiredContextDisplayName";
+
     private const string HandlerFilterAttributeName = "PPSHGram.Core.Models.Filters.HandlerFilterAttribute";
     private const string RequiresContextAttributeName = "PPSHGram.Core.Models.Filters.RequiresContextAttribute";
     private const string ClassBasedHandlerAttributeName = "PPSHGram.Core.Models.Handlers.ClassBasedHandlerAttribute";
@@ -16,7 +21,7 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
     private const string IContextName = "PPSHGram.Core.Models.Context.IContext";
 
     private static readonly DiagnosticDescriptor ContextMismatchRule = new(
-        "PPSHG001",
+        ContextMismatchDiagnosticId,
         "Handler context does not match filters",
         "Handler '{0}' accepts '{1}', but filters require '{2}'",
         "PPSHGram.Handlers",
@@ -24,7 +29,7 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
         isEnabledByDefault: true);
 
     private static readonly DiagnosticDescriptor MissingContextRule = new(
-        "PPSHG002",
+        MissingContextDiagnosticId,
         "Handler is missing context parameter",
         "Handler '{0}' must accept '{1}' as its first parameter",
         "PPSHGram.Handlers",
@@ -154,6 +159,7 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
             context.ReportDiagnostic(Diagnostic.Create(
                 MissingContextRule,
                 method.Locations.FirstOrDefault(),
+                CreateRequiredContextProperties(requiredContext),
                 $"{handlerType.Name}.{method.Name}",
                 requiredContext.Name));
             return;
@@ -164,10 +170,18 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
             context.ReportDiagnostic(Diagnostic.Create(
                 ContextMismatchRule,
                 parameter.Locations.FirstOrDefault(),
+                CreateRequiredContextProperties(requiredContext),
                 $"{handlerType.Name}.{method.Name}",
                 parameter.Type.Name,
                 requiredContext.Name));
         }
+    }
+
+    private static ImmutableDictionary<string, string?> CreateRequiredContextProperties(ITypeSymbol requiredContext)
+    {
+        return ImmutableDictionary<string, string?>.Empty
+            .Add(RequiredContextMetadataNameProperty, requiredContext.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat))
+            .Add(RequiredContextDisplayNameProperty, requiredContext.Name);
     }
 
     private static bool TryResolveRequiredContext(
