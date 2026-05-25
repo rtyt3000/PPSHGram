@@ -10,7 +10,12 @@ public static class UpdateContextFactory
         ArgumentNullException.ThrowIfNull(api);
         ArgumentNullException.ThrowIfNull(update);
 
-        if (update.Message is not null) return new MessageContext(api, update, update.Message);
+        if (update.Message is not null)
+        {
+            return CommandContext.TryParse(update.Message.Text, out _)
+                ? new CommandContext(api, update, update.Message)
+                : new MessageContext(api, update, update.Message);
+        }
         if (update.EditedMessage is not null) return new EditedMessageContext(api, update, update.EditedMessage);
         if (update.ChannelPost is not null) return new ChannelPostContext(api, update, update.ChannelPost);
         if (update.EditedChannelPost is not null) return new EditedChannelPostContext(api, update, update.EditedChannelPost);

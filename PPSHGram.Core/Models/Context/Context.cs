@@ -90,7 +90,64 @@ public abstract class MessageContextBase(Api api, Update update, Message message
     }
 }
 
-public sealed class MessageContext(Api api, Update update, Message message) : MessageContextBase(api, update, message);
+public class MessageContext(Api api, Update update, Message message) : MessageContextBase(api, update, message);
+
+public sealed class CommandContext : MessageContext
+{
+    public CommandContext(Api api, Update update, Message message) : base(api, update, message)
+    {
+        if (!TryParse(message.Text, out var command))
+        {
+            throw new ArgumentException("Message text must start with a bot command.", nameof(message));
+        }
+
+        Command = command.Command;
+        ArgumentText = command.ArgumentText;
+        Arguments = command.Arguments;
+    }
+
+    public string Command { get; }
+
+    public string ArgumentText { get; }
+
+    public IReadOnlyList<string> Arguments { get; }
+
+    internal static bool TryParse(string? text, out CommandData command)
+    {
+        command = default;
+        if (string.IsNullOrWhiteSpace(text) || text[0] != '/')
+        {
+            return false;
+        }
+
+        var commandEnd = text.IndexOf(' ');
+        var rawCommand = commandEnd < 0 ? text[1..] : text[1..commandEnd];
+        if (string.IsNullOrWhiteSpace(rawCommand))
+        {
+            return false;
+        }
+
+        var mentionStart = rawCommand.IndexOf('@');
+        var commandName = mentionStart < 0 ? rawCommand : rawCommand[..mentionStart];
+        if (string.IsNullOrWhiteSpace(commandName))
+        {
+            return false;
+        }
+
+        var argumentText = commandEnd < 0 ? string.Empty : text[(commandEnd + 1)..].Trim();
+        var arguments = argumentText.Length == 0
+            ? []
+            : argumentText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        command = new CommandData(commandName, argumentText, arguments);
+        return true;
+    }
+
+    internal readonly record struct CommandData(
+        string Command,
+        string ArgumentText,
+        IReadOnlyList<string> Arguments);
+}
 
 public sealed class EditedMessageContext(Api api, Update update, Message message) : MessageContextBase(api, update, message);
 

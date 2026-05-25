@@ -46,6 +46,22 @@ public class BotPipelineTests
     }
 
     [Fact]
+    public async Task Handle_update_dispatches_command_context_with_arguments()
+    {
+        CommandHandler.Reset();
+        using var bot = CreateBot();
+
+        bot.UseHandler<CommandHandler>();
+
+        await bot.HandleUpdateAsync(CreateMessageUpdate("/meow first  second"));
+
+        CommandHandler.Calls.Should().Be(1);
+        CommandHandler.Command.Should().Be("meow");
+        CommandHandler.ArgumentText.Should().Be("first  second");
+        CommandHandler.Arguments.Should().Equal("first", "second");
+    }
+
+    [Fact]
     public async Task Start_polling_reads_updates_and_dispatches_them()
     {
         var responses = new Queue<string>([
@@ -161,6 +177,35 @@ public class BotPipelineTests
             Calls++;
             LastText = context.Text;
             DependencyValue = dependency.Value;
+            return ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class CommandHandler
+    {
+        public static int Calls { get; private set; }
+
+        public static string? Command { get; private set; }
+
+        public static string? ArgumentText { get; private set; }
+
+        public static IReadOnlyList<string> Arguments { get; private set; } = [];
+
+        public static void Reset()
+        {
+            Calls = 0;
+            Command = null;
+            ArgumentText = null;
+            Arguments = [];
+        }
+
+        [PPSHGram.Core.Filters.CommandAttribute("meow")]
+        public ValueTask Handle(CommandContext context, CancellationToken cancellationToken = default)
+        {
+            Calls++;
+            Command = context.Command;
+            ArgumentText = context.ArgumentText;
+            Arguments = context.Arguments;
             return ValueTask.CompletedTask;
         }
     }
