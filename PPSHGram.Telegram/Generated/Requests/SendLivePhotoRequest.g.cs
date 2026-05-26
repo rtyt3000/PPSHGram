@@ -115,13 +115,13 @@ public sealed partial class SendLivePhotoRequest
     /// Live photo video to send. The video must be no longer than 10 seconds and must not exceed 10 MB in size. Pass a file_id as String to send a video that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
     /// </summary>
     [JsonPropertyName("live_photo")]
-    public object LivePhoto { get; init; } = default!;
+    public InputFile LivePhoto { get; init; } = default!;
 
     /// <summary>
     /// The static photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
     /// </summary>
     [JsonPropertyName("photo")]
-    public object Photo { get; init; } = default!;
+    public InputFile Photo { get; init; } = default!;
 
     /// <summary>
     /// Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing

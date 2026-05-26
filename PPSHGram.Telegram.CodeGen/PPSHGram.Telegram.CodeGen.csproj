@@ -8,4 +8,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <Content Include="Templates\*.template" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
 </Project>

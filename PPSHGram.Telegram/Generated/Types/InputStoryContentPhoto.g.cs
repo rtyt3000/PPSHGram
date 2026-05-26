@@ -13,12 +13,12 @@ public sealed partial class InputStoryContentPhoto
     /// Type of the content, must be photo
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "photo";
 
     /// <summary>
     /// The photo to post as a story. The photo must be of the size 1080x1920 and must not exceed 10 MB. The photo can&apos;t be reused and can only be uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the photo was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("photo")]
-    public string Photo { get; init; } = default!;
+    public InputFile Photo { get; init; } = default!;
 
 }

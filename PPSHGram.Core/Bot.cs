@@ -11,29 +11,17 @@ using PPSHGram.Telegram.Generated.Types;
 
 namespace PPSHGram.Core;
 
-public class Bot : IBot, IDisposable
+public class Bot(Api api, IServiceProvider? serviceProvider = null) : IBot, IDisposable
 {
-    private readonly IServiceProvider? _serviceProvider;
     private readonly bool _ownsApi;
     private readonly List<IMiddleware> _middlewares = [];
     private readonly List<HandlerRegistration> _handlers = [];
-    private bool _isRunning;
 
-    public Bot(string token, IServiceProvider? serviceProvider = null)
-        : this(new Api(token), serviceProvider)
-    {
-        _ownsApi = true;
-    }
+    public Bot(string token, IServiceProvider? serviceProvider = null) : this(new Api(token), serviceProvider) { _ownsApi = true; }
 
-    public Bot(Api api, IServiceProvider? serviceProvider = null)
-    {
-        Api = api ?? throw new ArgumentNullException(nameof(api));
-        _serviceProvider = serviceProvider;
-    }
+    public Api Api { get; } = api ?? throw new ArgumentNullException(nameof(api));
 
-    public Api Api { get; }
-
-    public bool IsRunning => _isRunning;
+    public bool IsRunning { get; private set; }
 
     public void UseMiddleware(IMiddleware middleware)
     {
@@ -87,12 +75,12 @@ public class Bot : IBot, IDisposable
     {
         ArgumentNullException.ThrowIfNull(options);
 
-        if (_isRunning)
+        if (IsRunning)
         {
             throw new InvalidOperationException("Bot polling is already running.");
         }
 
-        _isRunning = true;
+        IsRunning = true;
         var offset = options.Offset;
 
         try
@@ -121,7 +109,7 @@ public class Bot : IBot, IDisposable
         }
         finally
         {
-            _isRunning = false;
+            IsRunning = false;
         }
     }
 
@@ -235,7 +223,7 @@ public class Bot : IBot, IDisposable
             return this;
         }
 
-        var service = _serviceProvider?.GetService(parameter.ParameterType);
+        var service = serviceProvider?.GetService(parameter.ParameterType);
         if (service is not null)
         {
             return service;
@@ -252,7 +240,7 @@ public class Bot : IBot, IDisposable
 
     private object CreateInstance(Type type)
     {
-        var service = _serviceProvider?.GetService(type);
+        var service = serviceProvider?.GetService(type);
         if (service is not null)
         {
             return service;
@@ -293,11 +281,11 @@ public class Bot : IBot, IDisposable
 
             if (parameter.ParameterType == typeof(IServiceProvider))
             {
-                arguments[index] = _serviceProvider;
+                arguments[index] = serviceProvider;
                 continue;
             }
 
-            var service = _serviceProvider?.GetService(parameter.ParameterType);
+            var service = serviceProvider?.GetService(parameter.ParameterType);
             if (service is not null)
             {
                 arguments[index] = service;
@@ -342,13 +330,8 @@ public class Bot : IBot, IDisposable
         }
     }
 
-    private sealed record HandlerRegistration(IHandler? DirectHandler, HandlerDescriptor? Descriptor)
+    private sealed record HandlerRegistration(IHandler? DirectHandler, HandlerDescriptor? Descriptor = null)
     {
-        public HandlerRegistration(IHandler directHandler)
-            : this(directHandler, null)
-        {
-        }
-
         public HandlerRegistration(HandlerDescriptor descriptor)
             : this(null, descriptor)
         {

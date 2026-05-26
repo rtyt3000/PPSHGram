@@ -1,0 +1,7 @@
+{{summary}}{{parameter_remarks}}    public Task<{{return_type}}> {{method_name}}(
+        {{request_name}} request,
+        CancellationToken cancellationToken = default)
+    {
+        return CallAsync<{{return_type}}>(TelegramMethods.{{method_name}}, request, cancellationToken);
+    }
+

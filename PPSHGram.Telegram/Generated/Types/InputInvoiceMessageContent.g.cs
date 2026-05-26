@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents the content of an invoice message to be sent as the result of an inline query.
 /// </summary>
-public sealed partial class InputInvoiceMessageContent
+public sealed partial class InputInvoiceMessageContent : InputMessageContent
 {
     /// <summary>
     /// Product name, 1-32 characters

@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
 /// </summary>
-public sealed partial class InlineQueryResultDocument
+public sealed partial class InlineQueryResultDocument : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be document
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "document";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 bytes

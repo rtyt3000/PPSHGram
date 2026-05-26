@@ -111,7 +111,7 @@ public sealed partial class SendPhotoRequest
     /// Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo&apos;s width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("photo")]
-    public object Photo { get; init; } = default!;
+    public InputFile Photo { get; init; } = default!;
 
     /// <summary>
     /// Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing

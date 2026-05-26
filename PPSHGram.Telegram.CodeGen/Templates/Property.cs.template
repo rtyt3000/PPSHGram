@@ -1,0 +1,3 @@
+{{summary}}    [JsonPropertyName("{{json_name}}")]
+    public {{property_type}} {{property_name}} { get; init; }{{initializer}}
+

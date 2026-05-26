@@ -13,6 +13,6 @@ public sealed partial class BotCommandScopeAllGroupChats
     /// Scope type, must be all_group_chats
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "all_group_chats";
 
 }

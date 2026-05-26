@@ -5551,7 +5551,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendAnimation(
         object chatId,
-        object animation,
+        PPSHGram.Telegram.Generated.Types.InputFile animation,
         CancellationToken cancellationToken = default)
     {
         return SendAnimation(new SendAnimationRequest
@@ -5670,7 +5670,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendAudio(
         object chatId,
-        object audio,
+        PPSHGram.Telegram.Generated.Types.InputFile audio,
         CancellationToken cancellationToken = default)
     {
         return SendAudio(new SendAudioRequest
@@ -6115,7 +6115,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendDocument(
         object chatId,
-        object document,
+        PPSHGram.Telegram.Generated.Types.InputFile document,
         CancellationToken cancellationToken = default)
     {
         return SendDocument(new SendDocumentRequest
@@ -6573,8 +6573,8 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendLivePhoto(
         object chatId,
-        object livePhoto,
-        object photo,
+        PPSHGram.Telegram.Generated.Types.InputFile livePhoto,
+        PPSHGram.Telegram.Generated.Types.InputFile photo,
         CancellationToken cancellationToken = default)
     {
         return SendLivePhoto(new SendLivePhotoRequest
@@ -7173,7 +7173,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendPhoto(
         object chatId,
-        object photo,
+        PPSHGram.Telegram.Generated.Types.InputFile photo,
         CancellationToken cancellationToken = default)
     {
         return SendPhoto(new SendPhotoRequest
@@ -7453,7 +7453,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendSticker(
         object chatId,
-        object sticker,
+        PPSHGram.Telegram.Generated.Types.InputFile sticker,
         CancellationToken cancellationToken = default)
     {
         return SendSticker(new SendStickerRequest
@@ -7729,7 +7729,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideo(
         object chatId,
-        object video,
+        PPSHGram.Telegram.Generated.Types.InputFile video,
         CancellationToken cancellationToken = default)
     {
         return SendVideo(new SendVideoRequest
@@ -7832,7 +7832,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendVideoNote(
         object chatId,
-        object videoNote,
+        PPSHGram.Telegram.Generated.Types.InputFile videoNote,
         CancellationToken cancellationToken = default)
     {
         return SendVideoNote(new SendVideoNoteRequest
@@ -7939,7 +7939,7 @@ public sealed partial class Api : TelegramApiClient
     /// </remarks>
     public Task<PPSHGram.Telegram.Generated.Types.Message> SendVoice(
         object chatId,
-        object voice,
+        PPSHGram.Telegram.Generated.Types.InputFile voice,
         CancellationToken cancellationToken = default)
     {
         return SendVoice(new SendVoiceRequest

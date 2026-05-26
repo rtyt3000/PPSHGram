@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with specified content instead of the animation.
 /// </summary>
-public sealed partial class InlineQueryResultCachedGif
+public sealed partial class InlineQueryResultCachedGif : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be gif
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "gif";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 bytes

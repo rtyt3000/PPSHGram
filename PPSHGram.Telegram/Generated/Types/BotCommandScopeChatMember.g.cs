@@ -13,7 +13,7 @@ public sealed partial class BotCommandScopeChatMember
     /// Scope type, must be chat_member
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "chat_member";
 
     /// <summary>
     /// Unique identifier for the target chat or username of the target supergroup in the format @username. Channel direct messages chats and channel chats aren&apos;t supported.

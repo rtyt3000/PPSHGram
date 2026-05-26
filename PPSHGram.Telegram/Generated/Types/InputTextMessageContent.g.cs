@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents the content of a text message to be sent as the result of an inline query.
 /// </summary>
-public sealed partial class InputTextMessageContent
+public sealed partial class InputTextMessageContent : InputMessageContent
 {
     /// <summary>
     /// Text of the message to be sent, 1-4096 characters

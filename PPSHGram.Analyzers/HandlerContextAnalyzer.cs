@@ -18,6 +18,7 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
     private const string RequiresContextAttributeName = "PPSHGram.Core.Models.Filters.RequiresContextAttribute";
     private const string ClassBasedHandlerAttributeName = "PPSHGram.Core.Models.Handlers.ClassBasedHandlerAttribute";
     private const string FunctionBasedHandlerAttributeName = "PPSHGram.Core.Models.Handlers.FunctionBasedHandlerAttribute";
+    // ReSharper disable once InconsistentNaming
     private const string IContextName = "PPSHGram.Core.Models.Context.IContext";
 
     private static readonly DiagnosticDescriptor ContextMismatchRule = new(
@@ -44,8 +45,7 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
         DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
-        ImmutableArray.Create(ContextMismatchRule, MissingContextRule, IncompatibleFiltersRule);
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = [ContextMismatchRule, MissingContextRule, IncompatibleFiltersRule];
 
     public override void Initialize(AnalysisContext context)
     {
@@ -55,10 +55,7 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
         context.RegisterCompilationStartAction(startContext =>
         {
             var symbols = AnalyzerSymbols.Create(startContext.Compilation);
-            if (symbols is null)
-            {
-                return;
-            }
+            if (symbols is null) return;
 
             startContext.RegisterSymbolAction(
                 symbolContext => AnalyzeType((INamedTypeSymbol)symbolContext.Symbol, symbols, symbolContext),
@@ -278,7 +275,7 @@ public sealed class HandlerContextAnalyzer : DiagnosticAnalyzer
 
         foreach (var argument in classBasedAttribute.NamedArguments)
         {
-            if (argument.Key == "MethodName" && argument.Value.Value is string methodName)
+            if (argument is { Key: "MethodName", Value.Value: string methodName })
             {
                 return methodName;
             }

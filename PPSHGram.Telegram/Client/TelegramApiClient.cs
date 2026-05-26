@@ -49,7 +49,9 @@ public abstract class TelegramApiClient : IDisposable
             throw new ArgumentException("Telegram Bot API method name must not be empty.", nameof(method));
         }
 
-        using var content = JsonContent.Create(request ?? EmptyRequest.Instance, options: JsonSerializerOptions);
+        var requestPayload = request ?? EmptyRequest.Instance;
+        using var content = TelegramMultipartRequestContent.TryCreate(requestPayload, JsonSerializerOptions)
+            ?? JsonContent.Create(requestPayload, options: JsonSerializerOptions);
         using var response = await HttpClient.PostAsync(CreateMethodUri(method), content, cancellationToken).ConfigureAwait(false);
 
         var envelope = await response.Content

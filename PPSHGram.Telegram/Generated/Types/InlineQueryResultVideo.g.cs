@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video. If an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you must replace its content using input_message_content.
 /// </summary>
-public sealed partial class InlineQueryResultVideo
+public sealed partial class InlineQueryResultVideo : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be video
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "video";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 bytes

@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents the content of a location message to be sent as the result of an inline query.
 /// </summary>
-public sealed partial class InputLocationMessageContent
+public sealed partial class InputLocationMessageContent : InputMessageContent
 {
     /// <summary>
     /// Latitude of the location in degrees

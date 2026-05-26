@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a link to a voice message stored on the Telegram servers. By default, this voice message will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.
 /// </summary>
-public sealed partial class InlineQueryResultCachedVoice
+public sealed partial class InlineQueryResultCachedVoice : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be voice
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "voice";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 bytes

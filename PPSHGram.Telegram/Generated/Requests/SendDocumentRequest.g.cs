@@ -111,13 +111,13 @@ public sealed partial class SendDocumentRequest
     /// File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("document")]
-    public object Document { get; init; } = default!;
+    public InputFile Document { get; init; } = default!;
 
     /// <summary>
     /// Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&apos;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&apos;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("thumbnail")]
-    public object? Thumbnail { get; init; }
+    public InputFile? Thumbnail { get; init; }
 
     /// <summary>
     /// Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing

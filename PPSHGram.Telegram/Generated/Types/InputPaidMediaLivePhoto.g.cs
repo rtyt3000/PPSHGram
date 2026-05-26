@@ -13,18 +13,18 @@ public sealed partial class InputPaidMediaLivePhoto
     /// Type of the media, must be live_photo
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "live_photo";
 
     /// <summary>
     /// Video of the live photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
     /// </summary>
     [JsonPropertyName("media")]
-    public string Media { get; init; } = default!;
+    public InputFile Media { get; init; } = default!;
 
     /// <summary>
     /// The static photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
     /// </summary>
     [JsonPropertyName("photo")]
-    public string Photo { get; init; } = default!;
+    public InputFile Photo { get; init; } = default!;
 
 }

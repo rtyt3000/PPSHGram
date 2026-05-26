@@ -13,12 +13,12 @@ public sealed partial class InputProfilePhotoStatic
     /// Type of the profile photo, must be static
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "static";
 
     /// <summary>
     /// The static profile photo. Profile photos can&apos;t be reused and can only be uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the photo was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("photo")]
-    public string Photo { get; init; } = default!;
+    public InputFile Photo { get; init; } = default!;
 
 }

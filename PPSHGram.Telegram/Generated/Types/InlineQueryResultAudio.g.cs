@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a link to an MP3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
 /// </summary>
-public sealed partial class InlineQueryResultAudio
+public sealed partial class InlineQueryResultAudio : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be audio
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "audio";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 bytes

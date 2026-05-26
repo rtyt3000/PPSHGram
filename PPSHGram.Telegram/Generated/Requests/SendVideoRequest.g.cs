@@ -139,7 +139,7 @@ public sealed partial class SendVideoRequest
     /// Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("video")]
-    public object Video { get; init; } = default!;
+    public InputFile Video { get; init; } = default!;
 
     /// <summary>
     /// Duration of sent video in seconds
@@ -163,13 +163,13 @@ public sealed partial class SendVideoRequest
     /// Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&apos;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&apos;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("thumbnail")]
-    public object? Thumbnail { get; init; }
+    public InputFile? Thumbnail { get; init; }
 
     /// <summary>
     /// Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("cover")]
-    public object? Cover { get; init; }
+    public InputFile? Cover { get; init; }
 
     /// <summary>
     /// Start timestamp for the video in the message

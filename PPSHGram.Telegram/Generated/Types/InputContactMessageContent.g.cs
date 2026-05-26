@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents the content of a contact message to be sent as the result of an inline query.
 /// </summary>
-public sealed partial class InputContactMessageContent
+public sealed partial class InputContactMessageContent : InputMessageContent
 {
     /// <summary>
     /// Contact&apos;s phone number
