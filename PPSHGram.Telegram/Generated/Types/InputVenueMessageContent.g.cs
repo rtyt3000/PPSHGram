@@ -7,7 +7,7 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents the content of a venue message to be sent as the result of an inline query.
 /// </summary>
-public sealed partial class InputVenueMessageContent
+public sealed partial class InputVenueMessageContent : InputMessageContent
 {
     /// <summary>
     /// Latitude of the venue in degrees

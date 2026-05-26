@@ -7,25 +7,25 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
 /// </summary>
-public sealed partial class InputMediaAnimation
+public sealed partial class InputMediaAnimation : InputMedia
 {
     /// <summary>
     /// Type of the result, must be animation
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "animation";
 
     /// <summary>
     /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("media")]
-    public string Media { get; init; } = default!;
+    public InputFile Media { get; init; } = default!;
 
     /// <summary>
     /// Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&apos;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&apos;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("thumbnail")]
-    public string? Thumbnail { get; init; }
+    public InputFile? Thumbnail { get; init; }
 
     /// <summary>
     /// Caption of the animation to be sent, 0-1024 characters after entities parsing

@@ -13,7 +13,7 @@ public sealed partial class InputSticker
     /// The added sticker. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new file using multipart/form-data under &lt;file_attach_name&gt; name. Animated and video stickers can&apos;t be uploaded via HTTP URL. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("sticker")]
-    public string Sticker { get; init; } = default!;
+    public InputFile Sticker { get; init; } = default!;
 
     /// <summary>
     /// Format of the added sticker, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, “video” for a .WEBM video

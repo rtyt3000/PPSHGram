@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a Game.
 /// </summary>
-public sealed partial class InlineQueryResultGame
+public sealed partial class InlineQueryResultGame : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be game
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "game";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 bytes

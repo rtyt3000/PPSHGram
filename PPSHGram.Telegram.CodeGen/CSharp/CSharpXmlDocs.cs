@@ -6,6 +6,13 @@ namespace PPSHGram.Telegram.CodeGen.CSharp;
 
 internal static partial class CSharpXmlDocs
 {
+    public static string WriteSummary(string text, int indent = 0)
+    {
+        var builder = new StringBuilder();
+        WriteSummary(builder, text, indent);
+        return builder.ToString();
+    }
+
     public static void WriteSummary(StringBuilder builder, string text, int indent = 0)
     {
         var normalized = Normalize(text);
@@ -50,6 +57,15 @@ internal static partial class CSharpXmlDocs
 
         builder.AppendLine($"{indentation}/// </list>");
         builder.AppendLine($"{indentation}/// </remarks>");
+    }
+
+    public static string WriteParameterRemarks(
+        IEnumerable<(string Name, string Type, bool Required, string Description)> parameters,
+        int indent = 0)
+    {
+        var builder = new StringBuilder();
+        WriteParameterRemarks(builder, parameters, indent);
+        return builder.ToString();
     }
 
     private static string Normalize(string text)

@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a link to an article or web page.
 /// </summary>
-public sealed partial class InlineQueryResultArticle
+public sealed partial class InlineQueryResultArticle : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be article
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "article";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 Bytes

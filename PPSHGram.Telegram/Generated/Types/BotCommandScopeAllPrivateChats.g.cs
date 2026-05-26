@@ -13,6 +13,6 @@ public sealed partial class BotCommandScopeAllPrivateChats
     /// Scope type, must be all_private_chats
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "all_private_chats";
 
 }

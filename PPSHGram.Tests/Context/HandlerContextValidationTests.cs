@@ -30,6 +30,28 @@ public class HandlerContextValidationTests
     }
 
     [Fact]
+    public void Update_context_factory_creates_command_context_with_arguments()
+    {
+        var update = new Update
+        {
+            Message = new Message
+            {
+                MessageId = 1,
+                Date = 1,
+                Chat = new Chat { Id = 1, Type = "private" },
+                Text = "/meow first  second"
+            }
+        };
+
+        var context = UpdateContextFactory.Create(new Api("test-token"), update);
+
+        var commandContext = context.Should().BeOfType<CommandContext>().Subject;
+        commandContext.Command.Should().Be("meow");
+        commandContext.ArgumentText.Should().Be("first  second");
+        commandContext.Arguments.Should().Equal("first", "second");
+    }
+
+    [Fact]
     public void Resolve_context_type_prefers_more_specific_filter_context()
     {
         var method = typeof(ValidMessageHandler).GetMethod(nameof(ValidMessageHandler.Handle))!;

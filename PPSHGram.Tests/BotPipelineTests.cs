@@ -29,6 +29,28 @@ public class BotPipelineTests
     }
 
     [Fact]
+    public async Task Handle_update_runs_only_first_registered_direct_handler()
+    {
+        var events = new List<string>();
+        using var bot = CreateBot();
+
+        bot.UseHandler(new DelegateHandler((_, _) =>
+        {
+            events.Add("first");
+            return Task.CompletedTask;
+        }));
+        bot.UseHandler(new DelegateHandler((_, _) =>
+        {
+            events.Add("second");
+            return Task.CompletedTask;
+        }));
+
+        await bot.HandleUpdateAsync(CreateMessageUpdate("hello"));
+
+        events.Should().Equal("first");
+    }
+
+    [Fact]
     public async Task Handle_update_discovers_attribute_handlers_and_creates_them_from_services()
     {
         AttributeHandler.Reset();
@@ -43,6 +65,36 @@ public class BotPipelineTests
         AttributeHandler.Calls.Should().Be(1);
         AttributeHandler.LastText.Should().Be("hello world");
         AttributeHandler.DependencyValue.Should().Be("service-value");
+    }
+
+    [Fact]
+    public async Task Handle_update_runs_only_first_matching_attribute_handler()
+    {
+        ExclusiveHandlerEvents.Clear();
+        using var bot = CreateBot();
+
+        bot.UseHandler<FirstExclusiveHandler>();
+        bot.UseHandler<SecondExclusiveHandler>();
+
+        await bot.HandleUpdateAsync(CreateMessageUpdate("hello"));
+
+        ExclusiveHandlerEvents.Should().Equal("first");
+    }
+
+    [Fact]
+    public async Task Handle_update_dispatches_command_context_with_arguments()
+    {
+        CommandHandler.Reset();
+        using var bot = CreateBot();
+
+        bot.UseHandler<CommandHandler>();
+
+        await bot.HandleUpdateAsync(CreateMessageUpdate("/meow first  second"));
+
+        CommandHandler.Calls.Should().Be(1);
+        CommandHandler.Command.Should().Be("meow");
+        CommandHandler.ArgumentText.Should().Be("first  second");
+        CommandHandler.Arguments.Should().Equal("first", "second");
     }
 
     [Fact]
@@ -161,6 +213,57 @@ public class BotPipelineTests
             Calls++;
             LastText = context.Text;
             DependencyValue = dependency.Value;
+            return ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class CommandHandler
+    {
+        public static int Calls { get; private set; }
+
+        public static string? Command { get; private set; }
+
+        public static string? ArgumentText { get; private set; }
+
+        public static IReadOnlyList<string> Arguments { get; private set; } = [];
+
+        public static void Reset()
+        {
+            Calls = 0;
+            Command = null;
+            ArgumentText = null;
+            Arguments = [];
+        }
+
+        [PPSHGram.Core.Filters.CommandAttribute("meow")]
+        public ValueTask Handle(CommandContext context, CancellationToken cancellationToken = default)
+        {
+            Calls++;
+            Command = context.Command;
+            ArgumentText = context.ArgumentText;
+            Arguments = context.Arguments;
+            return ValueTask.CompletedTask;
+        }
+    }
+
+    private static List<string> ExclusiveHandlerEvents { get; } = [];
+
+    private sealed class FirstExclusiveHandler
+    {
+        [PPSHGram.Core.Filters.TextAttribute("hello")]
+        public ValueTask Handle(MessageContextBase context, CancellationToken cancellationToken = default)
+        {
+            ExclusiveHandlerEvents.Add("first");
+            return ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class SecondExclusiveHandler
+    {
+        [PPSHGram.Core.Filters.TextAttribute("hello")]
+        public ValueTask Handle(MessageContextBase context, CancellationToken cancellationToken = default)
+        {
+            ExclusiveHandlerEvents.Add("second");
             return ValueTask.CompletedTask;
         }
     }

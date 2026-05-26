@@ -119,7 +119,7 @@ public sealed partial class SendAudioRequest
     /// Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("audio")]
-    public object Audio { get; init; } = default!;
+    public InputFile Audio { get; init; } = default!;
 
     /// <summary>
     /// Audio caption, 0-1024 characters after entities parsing
@@ -161,7 +161,7 @@ public sealed partial class SendAudioRequest
     /// Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&apos;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&apos;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("thumbnail")]
-    public object? Thumbnail { get; init; }
+    public InputFile? Thumbnail { get; init; }
 
     /// <summary>
     /// Sends the message silently. Users will receive a notification with no sound.

@@ -107,7 +107,7 @@ public sealed partial class SendVoiceRequest
     /// Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("voice")]
-    public object Voice { get; init; } = default!;
+    public InputFile Voice { get; init; } = default!;
 
     /// <summary>
     /// Voice message caption, 0-1024 characters after entities parsing

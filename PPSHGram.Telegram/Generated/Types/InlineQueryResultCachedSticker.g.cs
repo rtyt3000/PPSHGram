@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.
 /// </summary>
-public sealed partial class InlineQueryResultCachedSticker
+public sealed partial class InlineQueryResultCachedSticker : InlineQueryResult
 {
     /// <summary>
     /// Type of the result, must be sticker
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "sticker";
 
     /// <summary>
     /// Unique identifier for this result, 1-64 bytes

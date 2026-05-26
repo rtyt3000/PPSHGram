@@ -67,6 +67,11 @@ internal static partial class CSharpTypeMapper
 
     private static string MapRequired(string type, string? fieldName)
     {
+        if (IsInputFileLike(type))
+        {
+            return "InputFile";
+        }
+
         if (TryMapArray(type, fieldName, out var arrayType))
         {
             return arrayType;
@@ -97,6 +102,11 @@ internal static partial class CSharpTypeMapper
             "Object" => "object",
             _ => CSharpNaming.ToPascalCase(type)
         };
+    }
+
+    private static bool IsInputFileLike(string type)
+    {
+        return SplitUnionParts(type).Any(part => part.Equals("InputFile", StringComparison.Ordinal));
     }
 
     private static bool TryMapArray(string type, string? fieldName, out string csharpType)

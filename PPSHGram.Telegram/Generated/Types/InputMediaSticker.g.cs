@@ -7,19 +7,19 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a sticker file to be sent.
 /// </summary>
-public sealed partial class InputMediaSticker
+public sealed partial class InputMediaSticker : InputMedia
 {
     /// <summary>
     /// Type of the result, must be sticker
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "sticker";
 
     /// <summary>
     /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a .WEBP sticker from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data under &lt;file_attach_name&gt; name. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("media")]
-    public string Media { get; init; } = default!;
+    public InputFile Media { get; init; } = default!;
 
     /// <summary>
     /// Emoji associated with the sticker; only for just uploaded stickers

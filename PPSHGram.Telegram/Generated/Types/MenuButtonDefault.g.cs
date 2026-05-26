@@ -13,6 +13,6 @@ public sealed partial class MenuButtonDefault
     /// Type of the button, must be default
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "default";
 
 }

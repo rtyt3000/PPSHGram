@@ -13,13 +13,13 @@ public sealed partial class InputMediaPhoto : InputMedia
     /// Type of the result, must be photo
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "photo";
 
     /// <summary>
     /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("media")]
-    public string Media { get; init; } = default!;
+    public InputFile Media { get; init; } = default!;
 
     /// <summary>
     /// Caption of the photo to be sent, 0-1024 characters after entities parsing

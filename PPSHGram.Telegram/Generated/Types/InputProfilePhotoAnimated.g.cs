@@ -13,13 +13,13 @@ public sealed partial class InputProfilePhotoAnimated
     /// Type of the profile photo, must be animated
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "animated";
 
     /// <summary>
     /// The animated profile photo. Profile photos can&apos;t be reused and can only be uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the photo was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// </summary>
     [JsonPropertyName("animation")]
-    public string Animation { get; init; } = default!;
+    public InputFile Animation { get; init; } = default!;
 
     /// <summary>
     /// Timestamp in seconds of the frame that will be used as the static profile photo. Defaults to 0.0.

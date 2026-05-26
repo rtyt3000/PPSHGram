@@ -11,30 +11,17 @@ using PPSHGram.Telegram.Generated.Types;
 
 namespace PPSHGram.Core;
 
-public class Bot : IBot, IDisposable
+public class Bot(Api api, IServiceProvider? serviceProvider = null) : IBot, IDisposable
 {
-    private readonly IServiceProvider? _serviceProvider;
     private readonly bool _ownsApi;
     private readonly List<IMiddleware> _middlewares = [];
-    private readonly List<IHandler> _handlers = [];
-    private readonly List<HandlerDescriptor> _handlerDescriptors = [];
-    private bool _isRunning;
+    private readonly List<HandlerRegistration> _handlers = [];
 
-    public Bot(string token, IServiceProvider? serviceProvider = null)
-        : this(new Api(token), serviceProvider)
-    {
-        _ownsApi = true;
-    }
+    public Bot(string token, IServiceProvider? serviceProvider = null) : this(new Api(token), serviceProvider) { _ownsApi = true; }
 
-    public Bot(Api api, IServiceProvider? serviceProvider = null)
-    {
-        Api = api ?? throw new ArgumentNullException(nameof(api));
-        _serviceProvider = serviceProvider;
-    }
+    public Api Api { get; } = api ?? throw new ArgumentNullException(nameof(api));
 
-    public Api Api { get; }
-
-    public bool IsRunning => _isRunning;
+    public bool IsRunning { get; private set; }
 
     public void UseMiddleware(IMiddleware middleware)
     {
@@ -51,7 +38,7 @@ public class Bot : IBot, IDisposable
     public void UseHandler(IHandler handler)
     {
         ArgumentNullException.ThrowIfNull(handler);
-        _handlers.Add(handler);
+        _handlers.Add(new HandlerRegistration(handler));
     }
 
     public void UseHandler<THandler>()
@@ -61,12 +48,12 @@ public class Bot : IBot, IDisposable
 
     public void UseHandler(Type handlerType)
     {
-        _handlerDescriptors.AddRange(HandlerDiscovery.Discover(handlerType));
+        _handlers.AddRange(HandlerDiscovery.Discover(handlerType).Select(descriptor => new HandlerRegistration(descriptor)));
     }
 
     public void UseHandlers(Assembly assembly)
     {
-        _handlerDescriptors.AddRange(HandlerDiscovery.Discover(assembly));
+        _handlers.AddRange(HandlerDiscovery.Discover(assembly).Select(descriptor => new HandlerRegistration(descriptor)));
     }
 
     public Task HandleUpdateAsync(Update update, CancellationToken cancellationToken = default)
@@ -88,12 +75,12 @@ public class Bot : IBot, IDisposable
     {
         ArgumentNullException.ThrowIfNull(options);
 
-        if (_isRunning)
+        if (IsRunning)
         {
             throw new InvalidOperationException("Bot polling is already running.");
         }
 
-        _isRunning = true;
+        IsRunning = true;
         var offset = options.Offset;
 
         try
@@ -122,7 +109,7 @@ public class Bot : IBot, IDisposable
         }
         finally
         {
-            _isRunning = false;
+            IsRunning = false;
         }
     }
 
@@ -152,13 +139,15 @@ public class Bot : IBot, IDisposable
 
     private async Task DispatchHandlers(IContext context, CancellationToken cancellationToken = default)
     {
-        foreach (var handler in _handlers)
+        foreach (var registration in _handlers)
         {
-            await handler.Handle(context, cancellationToken).ConfigureAwait(false);
-        }
+            if (registration.DirectHandler is not null)
+            {
+                await registration.DirectHandler.Handle(context, cancellationToken).ConfigureAwait(false);
+                return;
+            }
 
-        foreach (var descriptor in _handlerDescriptors)
-        {
+            var descriptor = registration.Descriptor!;
             if (!descriptor.ContextType.IsInstanceOfType(context)
                 || !HandlerFilterEvaluator.Matches(context, descriptor.Filters))
             {
@@ -167,6 +156,7 @@ public class Bot : IBot, IDisposable
 
             var instance = CreateInstance(descriptor.HandlerType);
             await InvokeHandler(instance, descriptor.Method, context, cancellationToken).ConfigureAwait(false);
+            return;
         }
     }
 
@@ -233,7 +223,7 @@ public class Bot : IBot, IDisposable
             return this;
         }
 
-        var service = _serviceProvider?.GetService(parameter.ParameterType);
+        var service = serviceProvider?.GetService(parameter.ParameterType);
         if (service is not null)
         {
             return service;
@@ -250,7 +240,7 @@ public class Bot : IBot, IDisposable
 
     private object CreateInstance(Type type)
     {
-        var service = _serviceProvider?.GetService(type);
+        var service = serviceProvider?.GetService(type);
         if (service is not null)
         {
             return service;
@@ -291,11 +281,11 @@ public class Bot : IBot, IDisposable
 
             if (parameter.ParameterType == typeof(IServiceProvider))
             {
-                arguments[index] = _serviceProvider;
+                arguments[index] = serviceProvider;
                 continue;
             }
 
-            var service = _serviceProvider?.GetService(parameter.ParameterType);
+            var service = serviceProvider?.GetService(parameter.ParameterType);
             if (service is not null)
             {
                 arguments[index] = service;
@@ -337,6 +327,14 @@ public class Bot : IBot, IDisposable
             {
                 await task.ConfigureAwait(false);
             }
+        }
+    }
+
+    private sealed record HandlerRegistration(IHandler? DirectHandler, HandlerDescriptor? Descriptor = null)
+    {
+        public HandlerRegistration(HandlerDescriptor descriptor)
+            : this(null, descriptor)
+        {
         }
     }
 }

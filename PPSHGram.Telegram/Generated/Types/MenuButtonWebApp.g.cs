@@ -13,7 +13,7 @@ public sealed partial class MenuButtonWebApp
     /// Type of the button, must be web_app
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "web_app";
 
     /// <summary>
     /// Text on the button

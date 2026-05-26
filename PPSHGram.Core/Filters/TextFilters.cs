@@ -63,7 +63,7 @@ public sealed class CaptionAttribute : HandlerFilterAttribute
     }
 }
 
-[RequiresContext(typeof(MessageContextBase))]
+[RequiresContext(typeof(CommandContext))]
 public sealed class CommandAttribute : HandlerFilterAttribute
 {
     public CommandAttribute(string command)
@@ -75,23 +75,17 @@ public sealed class CommandAttribute : HandlerFilterAttribute
 
     public bool IgnoreCase { get; init; } = true;
 
-    public override Type ContextType => typeof(MessageContextBase);
+    public override Type ContextType => typeof(CommandContext);
 
     public override bool Matches(IContext context)
     {
-        var text = ContextFilterData.GetMessage(context)?.Text;
-        if (string.IsNullOrWhiteSpace(text) || text[0] != '/')
+        if (!CommandContext.TryParse(ContextFilterData.GetMessage(context)?.Text, out var command))
         {
             return false;
         }
 
-        var commandEnd = text.IndexOf(' ');
-        var rawCommand = commandEnd < 0 ? text[1..] : text[1..commandEnd];
-        var mentionStart = rawCommand.IndexOf('@');
-        var command = mentionStart < 0 ? rawCommand : rawCommand[..mentionStart];
         var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-
-        return string.Equals(command, Command, comparison);
+        return string.Equals(command.Command, Command, comparison);
     }
 }
 

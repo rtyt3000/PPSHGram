@@ -7,13 +7,13 @@ namespace PPSHGram.Telegram.Generated.Types;
 /// <summary>
 /// Represents a location to be sent.
 /// </summary>
-public sealed partial class InputMediaLocation
+public sealed partial class InputMediaLocation : InputMedia
 {
     /// <summary>
     /// Type of the result, must be location
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = "location";
 
     /// <summary>
     /// Latitude of the location

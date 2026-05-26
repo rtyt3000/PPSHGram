@@ -11,8 +11,10 @@ internal static class CSharpGenerator
         var typesDirectory = Path.Combine(outputDirectory, "Types");
         var requestsDirectory = Path.Combine(outputDirectory, "Requests");
         var methodsDirectory = Path.Combine(outputDirectory, "Methods");
-        var unionImplementations = FindUnionImplementations(schema);
-        var unionTypeNames = unionImplementations.Values
+        var baseTypeImplementations = MergeImplementations(
+            FindUnionImplementations(schema),
+            FindImplicitFamilyImplementations(schema));
+        var baseTypeNames = baseTypeImplementations.Values
             .SelectMany(typeNames => typeNames)
             .ToHashSet(StringComparer.Ordinal);
 
@@ -26,14 +28,18 @@ internal static class CSharpGenerator
                 Path.Combine(typesDirectory, $"{type.Name}.g.cs"),
                 CSharpTypeWriter.WriteType(
                     type,
-                    unionImplementations.GetValueOrDefault(type.Name, Array.Empty<string>())));
+                    baseTypeImplementations.GetValueOrDefault(type.Name, Array.Empty<string>())));
         }
 
         foreach (var placeholderType in FindMissingReferencedTypes(schema))
         {
+            var derivedTypeNames = FindDerivedTypeNames(baseTypeImplementations, placeholderType);
             File.WriteAllText(
                 Path.Combine(typesDirectory, $"{placeholderType}.g.cs"),
-                CSharpTypeWriter.WritePlaceholderType(placeholderType, unionTypeNames.Contains(placeholderType)));
+                CSharpTypeWriter.WritePlaceholderType(
+                    placeholderType,
+                    baseTypeNames.Contains(placeholderType),
+                    derivedTypeNames));
         }
 
         foreach (var method in schema.Methods)
@@ -83,6 +89,90 @@ internal static class CSharpGenerator
                 grouping => grouping.Key,
                 grouping => (IReadOnlyCollection<string>)grouping.Distinct(StringComparer.Ordinal).ToArray(),
                 StringComparer.Ordinal);
+    }
+
+    private static IReadOnlyDictionary<string, IReadOnlyCollection<string>> FindImplicitFamilyImplementations(
+        TelegramSchema schema)
+    {
+        var referencedMissingTypes = FindMissingReferencedTypes(schema).ToHashSet(StringComparer.Ordinal);
+        var result = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+
+        AddFamily(
+            "InlineQueryResult",
+            typeName => typeName.StartsWith("InlineQueryResult", StringComparison.Ordinal)
+                && !typeName.StartsWith("InlineQueryResults", StringComparison.Ordinal));
+        AddFamily(
+            "InputMessageContent",
+            typeName => typeName.StartsWith("Input", StringComparison.Ordinal)
+                && typeName.EndsWith("MessageContent", StringComparison.Ordinal));
+        AddFamily(
+            "InputMedia",
+            typeName => typeName.StartsWith("InputMedia", StringComparison.Ordinal));
+
+        return result.ToDictionary(
+            pair => pair.Key,
+            pair => (IReadOnlyCollection<string>)pair.Value.Distinct(StringComparer.Ordinal).ToArray(),
+            StringComparer.Ordinal);
+
+        void AddFamily(string interfaceName, Func<string, bool> predicate)
+        {
+            if (!referencedMissingTypes.Contains(interfaceName))
+            {
+                return;
+            }
+
+            foreach (var typeName in schema.Types.Select(type => type.Name).Where(predicate))
+            {
+                if (typeName.Equals(interfaceName, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                if (!result.TryGetValue(typeName, out var interfaces))
+                {
+                    interfaces = [];
+                    result[typeName] = interfaces;
+                }
+
+                interfaces.Add(interfaceName);
+            }
+        }
+    }
+
+    private static IReadOnlyDictionary<string, IReadOnlyCollection<string>> MergeImplementations(
+        params IReadOnlyDictionary<string, IReadOnlyCollection<string>>[] implementations)
+    {
+        var result = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+
+        foreach (var implementation in implementations)
+        {
+            foreach (var (typeName, interfaceNames) in implementation)
+            {
+                if (!result.TryGetValue(typeName, out var currentInterfaceNames))
+                {
+                    currentInterfaceNames = [];
+                    result[typeName] = currentInterfaceNames;
+                }
+
+                currentInterfaceNames.AddRange(interfaceNames);
+            }
+        }
+
+        return result.ToDictionary(
+            pair => pair.Key,
+            pair => (IReadOnlyCollection<string>)pair.Value.Distinct(StringComparer.Ordinal).ToArray(),
+            StringComparer.Ordinal);
+    }
+
+    private static IReadOnlyCollection<string> FindDerivedTypeNames(
+        IReadOnlyDictionary<string, IReadOnlyCollection<string>> implementations,
+        string interfaceName)
+    {
+        return implementations
+            .Where(pair => pair.Value.Contains(interfaceName, StringComparer.Ordinal))
+            .Select(pair => pair.Key)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
     }
 
     private static void RecreateDirectory(string path)

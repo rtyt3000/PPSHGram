@@ -1,0 +1,1 @@
+{{summary}}{{parameter_remarks}}    public const string {{method_name}} = "{{telegram_method_name}}";
