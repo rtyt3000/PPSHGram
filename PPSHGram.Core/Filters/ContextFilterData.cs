@@ -1,5 +1,6 @@
 using PPSHGram.Core.Models.Context;
 using PPSHGram.Telegram.Generated.Types;
+using System.Text.RegularExpressions;
 
 namespace PPSHGram.Core.Filters;
 
@@ -56,8 +57,18 @@ internal static class ContextFilterData
             ?? update.ChatJoinRequest?.Date;
     }
 
-    public static bool MatchesText(string? actual, string? expected, TextMatchMode mode, bool ignoreCase)
+    public static bool MatchesText(
+        string? actual,
+        string? expected,
+        TextMatchMode mode,
+        bool ignoreCase,
+        Regex? regex = null)
     {
+        if (regex is not null)
+        {
+            return actual is not null && regex.IsMatch(actual);
+        }
+
         if (expected is null)
         {
             return actual is not null;
@@ -75,11 +86,23 @@ internal static class ContextFilterData
             TextMatchMode.Contains => actual.Contains(expected, comparison),
             TextMatchMode.StartsWith => actual.StartsWith(expected, comparison),
             TextMatchMode.EndsWith => actual.EndsWith(expected, comparison),
-            TextMatchMode.Regex => System.Text.RegularExpressions.Regex.IsMatch(
+            TextMatchMode.Regex => Regex.IsMatch(
                 actual,
                 expected,
-                ignoreCase ? System.Text.RegularExpressions.RegexOptions.IgnoreCase : System.Text.RegularExpressions.RegexOptions.None),
+                ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None),
             _ => false
         };
+    }
+
+    public static bool MatchesAnyText(
+        string? first,
+        string? second,
+        string? expected,
+        TextMatchMode mode,
+        bool ignoreCase,
+        Regex? regex = null)
+    {
+        return MatchesText(first, expected, mode, ignoreCase, regex)
+            || MatchesText(second, expected, mode, ignoreCase, regex);
     }
 }

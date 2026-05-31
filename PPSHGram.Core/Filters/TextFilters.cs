@@ -1,5 +1,6 @@
 using PPSHGram.Core.Models.Context;
 using PPSHGram.Core.Models.Filters;
+using System.Text.RegularExpressions;
 
 namespace PPSHGram.Core.Filters;
 
@@ -15,7 +16,20 @@ public sealed class TextAttribute : HandlerFilterAttribute
         Value = value;
     }
 
+    public TextAttribute(string value, TextMatchMode mode)
+        : this(value)
+    {
+        Mode = mode;
+    }
+
+    public TextAttribute(Regex regex)
+    {
+        Regex = regex;
+    }
+
     public string? Value { get; }
+
+    public Regex? Regex { get; }
 
     public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
 
@@ -29,7 +43,8 @@ public sealed class TextAttribute : HandlerFilterAttribute
             ContextFilterData.GetMessage(context)?.Text,
             Value,
             Mode,
-            IgnoreCase);
+            IgnoreCase,
+            Regex);
     }
 }
 
@@ -45,7 +60,20 @@ public sealed class CaptionAttribute : HandlerFilterAttribute
         Value = value;
     }
 
+    public CaptionAttribute(string value, TextMatchMode mode)
+        : this(value)
+    {
+        Mode = mode;
+    }
+
+    public CaptionAttribute(Regex regex)
+    {
+        Regex = regex;
+    }
+
     public string? Value { get; }
+
+    public Regex? Regex { get; }
 
     public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
 
@@ -59,7 +87,8 @@ public sealed class CaptionAttribute : HandlerFilterAttribute
             ContextFilterData.GetMessage(context)?.Caption,
             Value,
             Mode,
-            IgnoreCase);
+            IgnoreCase,
+            Regex);
     }
 }
 
@@ -101,7 +130,20 @@ public sealed class CallbackDataAttribute : HandlerFilterAttribute
         Value = value;
     }
 
+    public CallbackDataAttribute(string value, TextMatchMode mode)
+        : this(value)
+    {
+        Mode = mode;
+    }
+
+    public CallbackDataAttribute(Regex regex)
+    {
+        Regex = regex;
+    }
+
     public string? Value { get; }
+
+    public Regex? Regex { get; }
 
     public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
 
@@ -115,6 +157,7 @@ public sealed class CallbackDataAttribute : HandlerFilterAttribute
             context.Update.CallbackQuery?.Data,
             Value,
             Mode,
-            IgnoreCase);
+            IgnoreCase,
+            Regex);
     }
 }

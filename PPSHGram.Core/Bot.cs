@@ -56,6 +56,11 @@ public class Bot(Api api, IServiceProvider? serviceProvider = null) : IBot, IDis
         _handlers.AddRange(HandlerDiscovery.Discover(assembly).Select(descriptor => new HandlerRegistration(descriptor)));
     }
 
+    public void UseHandlers()
+    {
+        
+    }
+
     public Task HandleUpdateAsync(Update update, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(update);

@@ -1,5 +1,6 @@
 using PPSHGram.Core.Models.Context;
 using PPSHGram.Core.Models.Filters;
+using System.Text.RegularExpressions;
 
 namespace PPSHGram.Core.Filters;
 
@@ -70,9 +71,57 @@ public sealed class DeletedBusinessMessagesAttribute : HandlerFilterAttribute
 [RequiresContext(typeof(GuestMessageContext))]
 public sealed class GuestMessageAttribute : HandlerFilterAttribute
 {
+    public GuestMessageAttribute()
+    {
+    }
+
+    public GuestMessageAttribute(string value)
+    {
+        Value = value;
+    }
+
+    public GuestMessageAttribute(string value, TextMatchMode mode)
+        : this(value)
+    {
+        Mode = mode;
+    }
+
+    public GuestMessageAttribute(Regex regex)
+    {
+        Regex = regex;
+    }
+
+    public string? Value { get; }
+
+    public Regex? Regex { get; }
+
+    public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
+
+    public bool IgnoreCase { get; init; } = true;
+
     public override Type ContextType => typeof(GuestMessageContext);
 
-    public override bool Matches(IContext context) => context.Update.GuestMessage is not null;
+    public override bool Matches(IContext context)
+    {
+        var guestMessage = context.Update.GuestMessage;
+        if (guestMessage is null)
+        {
+            return false;
+        }
+
+        if (Value is null && Regex is null)
+        {
+            return true;
+        }
+
+        return ContextFilterData.MatchesAnyText(
+            guestMessage.Text,
+            guestMessage.Caption,
+            Value,
+            Mode,
+            IgnoreCase,
+            Regex);
+    }
 }
 
 [RequiresContext(typeof(MessageReactionContext))]
@@ -94,17 +143,111 @@ public sealed class MessageReactionCountAttribute : HandlerFilterAttribute
 [RequiresContext(typeof(CallbackQueryContext))]
 public sealed class CallbackQueryAttribute : HandlerFilterAttribute
 {
+    public CallbackQueryAttribute()
+    {
+    }
+
+    public CallbackQueryAttribute(string value)
+    {
+        Value = value;
+    }
+
+    public CallbackQueryAttribute(string value, TextMatchMode mode)
+        : this(value)
+    {
+        Mode = mode;
+    }
+
+    public CallbackQueryAttribute(Regex regex)
+    {
+        Regex = regex;
+    }
+
+    public string? Value { get; }
+
+    public Regex? Regex { get; }
+
+    public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
+
+    public bool IgnoreCase { get; init; } = false;
+
     public override Type ContextType => typeof(CallbackQueryContext);
 
-    public override bool Matches(IContext context) => context.Update.CallbackQuery is not null;
+    public override bool Matches(IContext context)
+    {
+        var callbackQuery = context.Update.CallbackQuery;
+        if (callbackQuery is null)
+        {
+            return false;
+        }
+
+        if (Value is null && Regex is null)
+        {
+            return true;
+        }
+
+        return ContextFilterData.MatchesText(
+            callbackQuery.Data,
+            Value,
+            Mode,
+            IgnoreCase,
+            Regex);
+    }
 }
 
 [RequiresContext(typeof(InlineQueryContext))]
 public sealed class InlineQueryAttribute : HandlerFilterAttribute
 {
+    public InlineQueryAttribute()
+    {
+    }
+
+    public InlineQueryAttribute(string query)
+    {
+        Query = query;
+    }
+
+    public InlineQueryAttribute(string query, TextMatchMode mode)
+        : this(query)
+    {
+        Mode = mode;
+    }
+
+    public InlineQueryAttribute(Regex regex)
+    {
+        Regex = regex;
+    }
+
+    public string? Query { get; }
+
+    public Regex? Regex { get; }
+
+    public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
+
+    public bool IgnoreCase { get; init; } = true;
+
     public override Type ContextType => typeof(InlineQueryContext);
 
-    public override bool Matches(IContext context) => context.Update.InlineQuery is not null;
+    public override bool Matches(IContext context)
+    {
+        var inlineQuery = context.Update.InlineQuery;
+        if (inlineQuery is null)
+        {
+            return false;
+        }
+
+        if (Query is null && Regex is null)
+        {
+            return true;
+        }
+
+        return ContextFilterData.MatchesText(
+            inlineQuery.Query,
+            Query,
+            Mode,
+            IgnoreCase,
+            Regex);
+    }
 }
 
 [RequiresContext(typeof(ChosenInlineResultContext))]

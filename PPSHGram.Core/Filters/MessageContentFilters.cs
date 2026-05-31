@@ -1,5 +1,6 @@
 using PPSHGram.Core.Models.Context;
 using PPSHGram.Core.Models.Filters;
+using System.Text.RegularExpressions;
 
 namespace PPSHGram.Core.Filters;
 
@@ -102,7 +103,54 @@ public sealed class PaymentAttribute : HandlerFilterAttribute
 [RequiresContext(typeof(MessageContextBase))]
 public sealed class WebAppDataAttribute : HandlerFilterAttribute
 {
+    public WebAppDataAttribute()
+    {
+    }
+
+    public WebAppDataAttribute(string value)
+    {
+        Value = value;
+    }
+
+    public WebAppDataAttribute(string value, TextMatchMode mode)
+        : this(value)
+    {
+        Mode = mode;
+    }
+
+    public WebAppDataAttribute(Regex regex)
+    {
+        Regex = regex;
+    }
+
+    public string? Value { get; }
+
+    public Regex? Regex { get; }
+
+    public TextMatchMode Mode { get; init; } = TextMatchMode.Exact;
+
+    public bool IgnoreCase { get; init; } = false;
+
     public override Type ContextType => typeof(MessageContextBase);
 
-    public override bool Matches(IContext context) => ContextFilterData.GetMessage(context)?.WebAppData is not null;
+    public override bool Matches(IContext context)
+    {
+        var webAppData = ContextFilterData.GetMessage(context)?.WebAppData;
+        if (webAppData is null)
+        {
+            return false;
+        }
+
+        if (Value is null && Regex is null)
+        {
+            return true;
+        }
+
+        return ContextFilterData.MatchesText(
+            webAppData.Data,
+            Value,
+            Mode,
+            IgnoreCase,
+            Regex);
+    }
 }
